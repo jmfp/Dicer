@@ -27,6 +27,7 @@ model Post {
   published   Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  keywords    String[]  
   //author   User      @relation(fields: [authorId], references: [id])
   //authorId String    @db.ObjectId
   //comments Comment[]
@@ -39,60 +40,4 @@ model User {
   username    String    @unique
   subscribed  Boolean   @default(false)
   admin       Boolean   @default(false)
-}
-
-model Course {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  title       String    
-  description String
-  image       String?    
-  price       Float?
-  isPublished Boolean   @default(false)
-  categoryId  String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
-model Attachment{
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  url         String
-  courseId    String    //id of the couorse the attachment beloongs to
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  //@@index([courseId])
-}
-
-model Chapter{
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  info        String    //markdown content for chapter
-  courseId    String    //id of course chapter belongs to
-  questions   String[]  @default([])    //questions and answers
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  //@@index([courseId])
-}
-
-model Question{
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  chapterId   String    //id of course chapter belongs to
-  question    String    //questions and answers
-  testcase    String[]  @default([])//potential test cases to pass for code questions
-  expected    String?   //expected output for test cases in code questions
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  //@@index([courseId])
-}
-
-model Answer{
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  questionId  String    //questions and answers
-  answer      String
-  correct     Boolean   @default(false)
-  testcase    String[]  @default([])//potential test cases to pass for code questions
-  expected    String?   //expected output for test cases in code questions
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  //@@index([courseId])
 }
