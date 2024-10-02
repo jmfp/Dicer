@@ -1,4 +1,5 @@
 import { serviceInfo } from "@/app/lib/interface";
+import Image from "next/image";
 import Link from "next/link";
 
 export async function LitGrid(props: {_info: serviceInfo[]}){
@@ -50,6 +51,18 @@ export async function LitContainer(props: {children?: React.ReactNode}){
             <div className={`${"after:blur-md after:absolute after:size-full after:z-[-2] after:top-[50%] after:left-[50%] after:transform after:translate-x-[-50%] after:translate-y-[-50%] after:p-6 after:bg-gradient-conic-spin from-primary via-green-600 to-primary after:saturate-200 after:animate-pulse"} ${"rgbGradient"}`}>
             </div>
             {props.children}
+        </div>
+    )
+}
+
+export async function BlogCard(props: {children?: React.ReactNode, image: string, title: string}){
+    return(
+        <div className="w-[25%] flex flex-col rounded-e-lg hover:border hover:border-primary">
+            <Image src={props.image} height={100} width={100} alt={props.title}>
+                <div>
+                    <span>{props.title}</span>
+                </div>
+            </Image>
         </div>
     )
 }

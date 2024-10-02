@@ -27,7 +27,8 @@ export default function AddPost(){
         content: z.string().min(1, {message: 'content is required'}),
         category: z.string().min(1, {message: 'category is required'}),
         previous: z.string(),
-        next: z.string()
+        next: z.string(),
+        keywords: z.array(z.string())
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -41,12 +42,14 @@ export default function AddPost(){
             content: '',
             category: '',
             previous: '',
-            next: ''
+            next: '',
+            keywords: ['']
         }
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>){
-        await addBlog(values)
+        console.log(values)
+        //await addBlog(values)
     }
 
     function generateSlug(articleTitle: string){
@@ -165,7 +168,19 @@ export default function AddPost(){
                             </FormItem>
                         )}
                     />
-                    
+                    <FormField
+                        control={form.control}
+                        name="keywords"
+                        render={({field}) =>(
+                            <FormItem>
+                                <FormLabel>Keywords</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="keywords" onChange={field.onChange}/>
+                                    </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                    />
                     <Button type='submit'>Submit</Button>
                 </form>
             </Form>

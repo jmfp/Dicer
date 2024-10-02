@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Email from "../components/forms/contact";
-import { ParallaxHero, ParallaxVideo } from "../components/images/image";
+import { ParallaxHero } from "../components/images/image";
 
 export default function Services() {
   return (
