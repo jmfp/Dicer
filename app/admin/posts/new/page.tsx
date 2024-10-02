@@ -110,7 +110,7 @@ export default function AddPost(){
                             <FormItem>
                                 <FormLabel>Description</FormLabel>
                                 <FormControl>
-                                    <RichText description={field.name} onChange={field.onChange}/>
+                                    <Input placeholder="Description" onChange={field.onChange}/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>

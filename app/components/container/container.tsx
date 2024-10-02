@@ -58,11 +58,11 @@ export async function LitContainer(props: {children?: React.ReactNode}){
 
 export async function BlogCard(props: {children?: React.ReactNode, image: string, title: string, slug: string, description: string}){
     return(
-        <div className="size-full m-auto flex flex-col border border-collapse rounded-lg hover:border-primary">
-            <Image src={props.image} height={100} width={100} alt={props.title} className="size-full rounded-t-md" />
-            <div className="p-6 m-auto">
+        <div className="h-full w-[90%] m-auto flex flex-col border border-collapse rounded-lg hover:border-primary bg-contain">
+            <Image src={props.image} height={200} width={200} alt={props.title} className="size-full rounded-t-md filter: saturate-150 overflow-hidden" />
+            <div className="p-6 m-auto flex flex-col">
                 <span className="text-xl text-primary line-clamp-2">{props.description}</span>
-                <Button asChild>
+                <Button asChild className="m-auto my-4">
                     <Link href={`/blog/${props.slug}/`}>Read More</Link>
                 </Button>
             </div>
