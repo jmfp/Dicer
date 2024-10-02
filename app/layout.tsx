@@ -41,7 +41,7 @@ export default function RootLayout({
     
     <html lang="en">
       <meta name="google-adsense-account" content="ca-pub-9522353240660967"></meta>
-      <body className={nunito.className}>
+      <body className={`${nunito.className} top-0`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -28,7 +28,8 @@ export default function AddPost(){
         category: z.string().min(1, {message: 'category is required'}),
         previous: z.string(),
         next: z.string(),
-        keywords: z.array(z.string())
+        keywords: z.array(z.string()),
+        keywords_string: z.string()
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -43,13 +44,13 @@ export default function AddPost(){
             category: '',
             previous: '',
             next: '',
-            keywords: ['']
+            keywords: [''],
+            keywords_string: ''
         }
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>){
-        console.log(values)
-        //await addBlog(values)
+        await addBlog(values)
     }
 
     function generateSlug(articleTitle: string){
@@ -136,7 +137,7 @@ export default function AddPost(){
                             <FormItem>
                                 <FormLabel>Category</FormLabel>
                                 <FormControl>
-                                    <RichText description={field.name} onChange={field.onChange}/>
+                                    <Input placeholder="Category" onChange={field.onChange}/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -149,7 +150,7 @@ export default function AddPost(){
                             <FormItem>
                                 <FormLabel>Previous Article Slug</FormLabel>
                                 <FormControl>
-                                    <RichText description={field.name} onChange={field.onChange}/>
+                                    <Input placeholder="Previous Article Slug" onChange={field.onChange}/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -162,7 +163,7 @@ export default function AddPost(){
                             <FormItem>
                                 <FormLabel>Next Article Slug</FormLabel>
                                 <FormControl>
-                                    <RichText description={field.name} onChange={field.onChange}/>
+                                    <Input placeholder="Next Article Slug" onChange={field.onChange}/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -170,12 +171,12 @@ export default function AddPost(){
                     />
                     <FormField
                         control={form.control}
-                        name="keywords"
+                        name="keywords_string"
                         render={({field}) =>(
                             <FormItem>
                                 <FormLabel>Keywords</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="keywords" onChange={field.onChange}/>
+                                        <Input placeholder="Keywords Comma Separated, No Spaces Between Keywords" onChange={field.onChange}/>
                                     </FormControl>
                                 <FormMessage/>
                             </FormItem>

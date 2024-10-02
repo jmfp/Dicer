@@ -33,7 +33,7 @@ export async function generateMetadata({params}: {params: {slug: string}}): Prom
   return{
     title: post.title,
     description: post.description,
-    keywords:[post.title],
+    keywords:[post.title, ...post.keywords],
     openGraph: {
       images: [
         {
@@ -58,13 +58,12 @@ export default async function Article({params}:{params: {slug: string}}){
     const post = await getPost(params.slug)
     let content = parse(post.content)
     return(
-      <div className='display: flex h-full flex-col overflow-hidden'>
+      <div className='display: flex h-full flex-col overflow-hidden top-0'>
         <ParallaxHero image={post.image} height={50}/>
         <div className='p-1'>
-        <LitContainer>
-          <div className="w-[100vw] content-center flex-auto p-10 prose-h1:text-violet-500">
+          <div className="w-[100vw] content-center flex-auto p-10 prose-h1:text-primary">
           <h1 className="text-3xl font-extrabold text-center">{post.title}</h1>
-            <div className="mt-24 prose m-[auto] prose-violet prose-xl dark:prose-invert prose-h2:text-violet-500 prose-li:color-violet-500">
+            <div className="mt-24 prose m-[auto] prose-violet prose-xl dark:prose-invert prose-h2:text-primary prose-li:color-primary">
               {/*parse(post.content)*/}
               <MarkdownArea content={post.content}>
               </MarkdownArea>
@@ -86,7 +85,6 @@ export default async function Article({params}:{params: {slug: string}}){
               </form>
             }
         </div>
-        </LitContainer>
         <div className='my-6'>
           <LitContainer>
             <NewsletterBottomAd offer="Free SEO Checklist"/>

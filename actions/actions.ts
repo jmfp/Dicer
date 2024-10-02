@@ -35,6 +35,7 @@ export const addBlog = async (formData: any) => {
     const description = formData["description"]
     const content = formData["content"]
     const category = formData["category"]
+    const keywords = formData["keywords"]
     const new_blog = await prisma.post.create({
         data:{
             image: image,
@@ -42,7 +43,8 @@ export const addBlog = async (formData: any) => {
             slug: slug,
             description: description,
             content: content, 
-            category: category
+            category: category,
+            keywords
         }
     })
 

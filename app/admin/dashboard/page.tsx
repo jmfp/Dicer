@@ -15,10 +15,10 @@ export default async function Dashboard(){
             <div className='my-2'>
                 <p>All Posts</p>
             </div>
-            <div className="w-[80%] h-[800px] justify-center rounded-lg border-2 border-purple-500 overflow-y-scroll">
+            <div className="w-[80%] h-[800px] justify-center rounded-lg border-2 border-primary overflow-y-scroll">
                 {!posts.length ? <span/> : 
                     posts.map((post: any, idx: number) =>(
-                        <div key={idx} className="display: flex w-[80%] m-auto gap-4 border-2 border-purple-500  justify-between items-center rounded-lg my-4">
+                        <div key={idx} className="display: flex w-[80%] m-auto gap-4 border-2 border-primary  justify-between items-center rounded-lg my-4">
                             <Image 
                                 src={post.image} 
                                 alt={post.slug} 
@@ -42,6 +42,12 @@ export default async function Dashboard(){
                         </div>
                     ))
                 }
+            </div>
+
+            <div className="my-2 flex flex-row w-[80%] p-4 gap-2">
+                <Button asChild className="m-auto">
+                    <Link href="/admin/posts/new">New Post</Link>
+                </Button>
             </div>
         </div>
     )

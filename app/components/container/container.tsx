@@ -1,4 +1,5 @@
 import { serviceInfo } from "@/app/lib/interface";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -55,14 +56,16 @@ export async function LitContainer(props: {children?: React.ReactNode}){
     )
 }
 
-export async function BlogCard(props: {children?: React.ReactNode, image: string, title: string}){
+export async function BlogCard(props: {children?: React.ReactNode, image: string, title: string, slug: string, description: string}){
     return(
-        <div className="w-[25%] flex flex-col rounded-e-lg hover:border hover:border-primary">
-            <Image src={props.image} height={100} width={100} alt={props.title}>
-                <div>
-                    <span>{props.title}</span>
-                </div>
-            </Image>
+        <div className="size-full m-auto flex flex-col border border-collapse rounded-lg hover:border-primary">
+            <Image src={props.image} height={100} width={100} alt={props.title} className="size-full rounded-t-md" />
+            <div className="p-6 m-auto">
+                <span className="text-xl text-primary line-clamp-2">{props.description}</span>
+                <Button asChild>
+                    <Link href={`/blog/${props.slug}/`}>Read More</Link>
+                </Button>
+            </div>
         </div>
     )
 }
