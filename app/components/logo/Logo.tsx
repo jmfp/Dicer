@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 //import Logo from "../../logo";
 //import Button from "../../button";
+import Image from 'next/image'
 
 const Logo = () =>{
     return(
@@ -9,7 +10,7 @@ const Logo = () =>{
         <Link
           href="/"
         >
-          <p>JesseThe{"["}<span className="text-violet-500">Dev</span>{"]"}</p>
+          <Image src="/images/hero.png" height={100} width={100} alt="Retro and indie video games"/>
         </Link>
         </div>
     );

@@ -13,18 +13,18 @@ const inter = Inter({ subsets: ["latin"] });
 const nunito = Nunito({subsets: ["latin"]});
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.jessethedev.com"),
-  keywords: ["jessie price", "jessethedev", "madison ohio software developer", "web designer", "madison ohio web designer", "web designer near me",
-    "northeast ohio", "northeast ohio web designer", "cleveland ohio", "cleveland ohio web designer", "software", "madison ohio", "web developer", 
-    "web developer madison ohio", "jesse price", "react", "reactjs", "react.js", "next", "next.js", "nextjs", "unity", "game development",
-    "unity engine", "javascript", "python", "c#", "html", "html5", "css", "css3", "tailwind", "react-three", "react three", "react three fiber"
+  metadataBase: new URL("https://www.Britemune.com"),
+  keywords: ["Britemune", "retro game reviews", "retro gaming", "retro game streaming platform", "pokemon",
+    "indie gaming", "game development", "indie game development", "nintendo", "playstation", "xbox", "playstation 2", 
+    "gamecube", "nintendo 64", "n64", "godot engine", "legend of zelda", "next", "next.js", "nextjs", "unity",
+    "unity engine",
   ],
   title: {
-    default: "JesseTheDev",
-    template: "%s | JesseTheDev"
+    default: "Britemune",
+    template: "%s | Britemune"
   },
   openGraph: {
-    description: "Web Design Services in Madison Ohio."
+    description: "retro game reviews"
   },
   twitter:{
     card: "summary_large_image"
@@ -58,7 +58,7 @@ export default function RootLayout({
           </Providers>
         </ThemeProvider>
       </body>
-      <GoogleAnalytics gaId="G-ZJMTS01ZQZ" />
+      {/*<GoogleAnalytics gaId="G-ZJMTS01ZQZ" />*/}
     </html>
   );
 }
