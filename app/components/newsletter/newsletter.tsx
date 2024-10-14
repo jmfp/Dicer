@@ -10,7 +10,7 @@ export async function NewsletterBottomAd(props: {offer: string}) {
         <div className="text-center m-auto">
             <h1 className="text-6xl text-primary text-center m-auto">Join Our Newsletter</h1>
             <p className="text-2xl m-auto text-white">Old Games <span className="text-primary text-2xl m-auto">New News</span></p>
-            <p className="text-white">Don't miss out on new developments in the indie and retro scene.</p>
+            <p className="text-white">New developments in the indie and retro scene.</p>
             <p className="text-white">Find new and interesting <span className="text-primary">information, stories, products</span> and <span className="text-primary">more</span> in your inbox.</p>
             <form action={async(formData: FormData) => {
               'use server'
