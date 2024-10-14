@@ -29,7 +29,7 @@ export async function sendEmail(formData: any){
             transport.sendMail(mailOptions, function (err) {
               if (!err) {
                 resolve('Email sent');
-                redirect("/thankyou")
+                //redirect("/thankyou")
               } else {
                 reject(err.message);
               }

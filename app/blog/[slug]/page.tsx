@@ -12,6 +12,7 @@ import { LitContainer } from '@/app/components/container/container';
 import { cache } from 'react'
 import { getAllPosts } from '@/actions/actions';
 import { NewsletterBottomAd } from '@/app/components/newsletter/newsletter';
+import Link from 'next/link';
 
 hljs.registerLanguage('typescript', typescript);
 
@@ -30,10 +31,11 @@ const getPost = cache(fetchPosts)
 
 export async function generateMetadata({params}: {params: {slug: string}}): Promise<Metadata>{
   const post = await getPost(params.slug)
+  const keywords = post.keywords
   return{
     title: post.title,
     description: post.description,
-    keywords:[post.title, ...post.keywords],
+    keywords: [post.title],
     openGraph: {
       images: [
         {
@@ -68,22 +70,21 @@ export default async function Article({params}:{params: {slug: string}}){
               <MarkdownArea content={post.content}>
               </MarkdownArea>
             </div>
-            {!post.previous? <span/> :
-              <form action={async () =>{
-                'use server'
-                redirect(`redirect/${post.previous}`)
-              }}>
-                <Button type='submit'>Previous</Button>
-              </form>
-            }
-            {!post.next? <span/> :
-              <form action={async () =>{
-                'use server'
-                redirect(`redirect/${post.next}`)
-              }}>
-                <Button type='submit'>Next</Button>
-              </form>
-            }
+            <div className="flex m-auto my-6">
+              {!post.previous? <span/> :
+                <form action={async () =>{
+                  'use server'
+                  redirect(`/blog/${post.previous}`)
+                }}>
+                  <Button type='submit'>Previous</Button>
+                </form>
+              }
+              {!post.next? <span/> :
+                  <Button asChild className='m-auto'>
+                    <Link href={`/blog/${post.next}`}>{`Read Next Post`}</Link>
+                  </Button>
+              }
+            </div>
         </div>
         <div className='my-6'>
           <LitContainer>

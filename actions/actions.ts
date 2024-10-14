@@ -1,11 +1,34 @@
 'use server'
 
-import { course } from "@/app/lib/interface"
+//import { course } from "@/app/lib/interface"
 import { PrismaClient } from "@/prisma/generated/client"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import axios from "axios";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { z } from "zod";
 
 const prisma = new PrismaClient()
+
+const client = require("@mailchimp/mailchimp_marketing");
+client.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY,
+  server: process.env.MAILCHIMP_API_SERVER,
+});
+
+export async function handle(email: any, name: any){
+    const response = await client.lists.addListMember(process.env.MAILCHIMP_AUDIENCE_ID, { email_address: email, status: "subscribed", merge_fields:{FNAME: name, LNAME: ""} })
+    //const response = await client.lists.setListMember(
+    //    process.env.MAILCHIMP_AUDIENCE_ID,
+    //    "subscriber_hash",
+    //    { email_address: email, status_if_new: "pending" }
+    //  );
+    //  console.log(response);
+  //const body = req.body;
+  //const bodyJson = JSON.parse(body)
+  console.log(response)
+}
+
 
 //convert file to base64
 const toBase64 = async (file: File) => {
