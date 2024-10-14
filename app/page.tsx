@@ -14,7 +14,7 @@ export default async function Services() {
     <div className="display: flex flex-col text-center overflow-hidden">
       <ParallaxHeroContainer image="/images/hero.png" height={80} text="">
         <span className="h-[500px]"/>
-        {<div className="h-[500px]">
+        {<div className="lg:h-[500px] md:h-[400px] max-sm:scale-100">
           <p>{" "}</p>
         </div>}
       </ParallaxHeroContainer>
