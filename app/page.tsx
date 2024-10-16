@@ -12,12 +12,8 @@ export default async function Services() {
   const posts = await getAllPosts()
   return (
     <div className="display: flex flex-col text-center overflow-hidden">
-      <ParallaxHeroContainer image="/images/hero.png" height={80} text="">
-        <span className="h-[500px]"/>
-        {<div className="lg:h-[500px] md:h-[400px] max-sm:scale-100">
-          <p>{" "}</p>
-        </div>}
-      </ParallaxHeroContainer>
+
+      <ParallaxHero image="/images/hero.png" height={50}/>
       <div className="flex flex-col size-full p-6">
         <LitContainer>
           <NewsletterBottomAd offer="" />

@@ -41,3 +41,12 @@ model User {
   subscribed  Boolean   @default(false)
   admin       Boolean   @default(false)
 }
+
+model Course {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  chapters    String[]  //urls for youtube videos
+  titles      String[]  //titles for each chapter
+  ownerId     String    //owner of course
+  price       Float     @default(0.00)
+  completed   Boolean   @default(false)
+}

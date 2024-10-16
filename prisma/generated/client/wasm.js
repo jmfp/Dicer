@@ -137,6 +137,15 @@ exports.Prisma.UserScalarFieldEnum = {
   admin: 'admin'
 };
 
+exports.Prisma.CourseScalarFieldEnum = {
+  id: 'id',
+  chapters: 'chapters',
+  titles: 'titles',
+  ownerId: 'ownerId',
+  price: 'price',
+  completed: 'completed'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -150,7 +159,8 @@ exports.Prisma.QueryMode = {
 
 exports.Prisma.ModelName = {
   Post: 'Post',
-  User: 'User'
+  User: 'User',
+  Course: 'Course'
 };
 
 /**

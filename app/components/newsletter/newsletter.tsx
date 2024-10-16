@@ -25,7 +25,7 @@ export async function NewsletterBottomAd(props: {offer: string}) {
                 //  console.log(email)
                 //})
                 //add to mailchimp list
-            }} className="flex flex-col gap-3">
+            }} className="flex flex-col gap-3 p-3">
                 <Input name="name" placeholder="First Name" required className="caret-primary"/>
                 <Input name="email" type="email" placeholder="E-Mail" required className="caret-primary"/>
                 <Button type="submit">Signup</Button>
