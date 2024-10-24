@@ -12,7 +12,6 @@ export default async function Services() {
   const posts = await getAllPosts()
   return (
     <div className="display: flex flex-col text-center overflow-hidden">
-
       <ParallaxHero image="/images/hero.png" height={50}/>
       <div className="flex flex-col size-full p-6">
         <LitContainer>
@@ -23,7 +22,6 @@ export default async function Services() {
           <BlogCard image={posts[posts.length - 1].image} title={posts[posts.length - 1].title} slug={posts[posts.length - 1].slug} description={posts[posts.length - 1].description}/>
         </div>
       </div>
-
     </div>
   )
 }

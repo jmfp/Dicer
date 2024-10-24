@@ -21,7 +21,7 @@ export default function AddPost(){
 
     const formSchema = z.object({
         title: z.string().min(5, {message: 'Minimum title of 5 characters'}),
-        image: z.string().min(1, {message: 'Image is required'}),
+        image: z.instanceof(File),
         slug: z.string().min(1, {message: 'slug is required'}),
         description: z.string().min(2, {message: 'description is required'}),
         content: z.string().min(1, {message: 'content is required'}),
@@ -37,7 +37,7 @@ export default function AddPost(){
         mode: 'onChange',
         defaultValues:{
             title: '',
-            image: '',
+            image: new File([], ""),
             slug: '',
             description: '',
             content: '',
@@ -48,9 +48,22 @@ export default function AddPost(){
             keywords_string: ''
         }
     })
+    const fileRef = form.register("image");
 
     async function onSubmit(values: z.infer<typeof formSchema>){
-        await addBlog(values)
+        //send data to server action to put in database
+        const formData : FormData = new FormData()
+        formData.append("title", values.title)
+        formData.append("description", values.description)
+        formData.append("image", values.image)
+        formData.append("slug", values.slug)
+        formData.append("content", values.content)
+        formData.append("category", values.category)
+        formData.append("previous", values.previous)
+        formData.append("next", values.next)
+        formData.append("keywords", values.keywords_string)
+        console.log(formData.get("image"))
+        await addBlog(formData)
     }
 
     function generateSlug(articleTitle: string){
@@ -67,11 +80,11 @@ export default function AddPost(){
                 <FormField
                         control={form.control}
                         name="image"
-                        render={({field}) =>(
+                        render={({ field: { value, onChange, ...fieldProps } }) =>(
                             <FormItem>
                                 <FormLabel>Image</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Article Image Url" {...field}/>
+                                    <Input {...fieldProps} type="file" onChange={(event) => onChange(event.target.files && event.target.files[0])}/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>

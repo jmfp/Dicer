@@ -35,7 +35,7 @@ export async function generateMetadata({params}: {params: {slug: string}}): Prom
   return{
     title: post.title,
     description: post.description,
-    keywords: [post.title],
+    keywords: [...keywords],
     openGraph: {
       images: [
         {
