@@ -24,7 +24,7 @@ export default async function Home() {
 
   return (
       <div className='display: flex w-[100%] justify-center mb-14'>
-        <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-5 gap-5 content-center'>
+        <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-5 mx-5 gap-5 content-center'>
           {posts.length ? posts.map((post: post, idx: number) =>(
             <BlogCard image={post.image} title={post.title} slug={post.slug} description={post.description} key={idx}/>
           )) : <span/>}
