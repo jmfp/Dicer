@@ -8,11 +8,15 @@ import MarkdownArea from '@/app/components/markdown/MarkdownArea';
 import { Button } from '@/components/ui/button';
 import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
-import { LitContainer } from '@/app/components/container/container';
+import { LitContainer, MDXComponent } from '@/app/components/container/container';
 import { cache } from 'react'
 import { getAllPosts } from '@/actions/actions';
 import { NewsletterBottomAd } from '@/app/components/newsletter/newsletter';
 import Link from 'next/link';
+import { ReviewCard } from '@/app/components/container/container';
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote } from 'next-mdx-remote'
+import Ebay from '@/app/components/ads/ebay';
 
 hljs.registerLanguage('typescript', typescript);
 
@@ -21,6 +25,8 @@ const prisma = new PrismaClient()
 
 //caching post fetch so that the data is only retrieved once
 const getPost = cache(fetchPosts)
+
+const components = {ReviewCard}
 
 //static params for load time
 //export async function generateStaticParams() : Promise<any>{
@@ -49,20 +55,30 @@ export async function generateMetadata({params}: {params: {slug: string}}): Prom
   }
 }
 
+export async function getInitialProps({params}: {params: {slug: string}}) {
+  // MDX text - can be from a local file, database, anywhere
+  const content = await prisma.post.findMany({where: {slug: params.slug}})
+  const source = content[0].content
+  const mdxSource = await serialize(source)
+  return { props: { source: mdxSource } }
+}
+
 //fetch posts from mongodb
 async function fetchPosts(slug: string){
   const posts = await prisma.post.findMany({where: {slug: slug}})
   return (posts[0])
 }
 
-export default async function Article({params}:{params: {slug: string}}){
+export default async function Article({params, source}:{params: {slug: string}, source: any}){
     //const data: article = await getData(params.slug)
     const post = await getPost(params.slug)
-    let content = parse(post.content)
+    const content = await serialize(post.content)
+    
     return(
       <div className='display: flex h-full flex-col overflow-hidden top-0'>
         <ParallaxHero image={post.image} height={50}/>
         <div className='p-1'>
+        <ins className="epn-placement" data-config-id="fff03d0f6c02747cb0c58ea5"></ins>
           <div className="w-[100vw] content-center flex-auto p-10 prose-h1:text-primary">
           <h1 className="text-3xl font-extrabold text-center">{post.title}</h1>
             <div className="mt-24 prose m-[auto] prose-violet prose-xl dark:prose-invert prose-h2:text-primary prose-li:color-primary">
@@ -86,6 +102,8 @@ export default async function Article({params}:{params: {slug: string}}){
               }
             </div>
         </div>
+
+        <Ebay search={post.ebaySearch} image={post.ebayImage} productName={post.ebayProduct}/>
         <div className='my-6'>
           <LitContainer>
             <NewsletterBottomAd offer="Free SEO Checklist"/>

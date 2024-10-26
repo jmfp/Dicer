@@ -2,6 +2,12 @@ import { serviceInfo } from "@/app/lib/interface";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+ 
+interface Props {
+  mdxSource: MDXRemoteSerializeResult
+}
 
 export async function LitGrid(props: {_info: serviceInfo[]}){
     return(
@@ -48,7 +54,7 @@ export async function LitGridOpen(props: {array: any[]}){
 
 export async function LitContainer(props: {children?: React.ReactNode}){
     return(
-        <div className="flex relative bg-slate-900 w-full h-full rounded-lg m-auto">
+        <div className="flex relative bg-slate-900 w-full h-full rounded-lg m-auto my-6">
             <div className={`${"after:blur-md after:absolute after:size-full after:z-[-2] after:top-[50%] after:left-[50%] after:transform after:translate-x-[-50%] after:translate-y-[-50%] after:p-6 after:bg-gradient-conic-spin from-primary via-primary to-primary after:saturate-200 after:animate-pulse"} ${"rgbGradient"}`}>
             </div>
             {props.children}
@@ -68,4 +74,32 @@ export async function BlogCard(props: {children?: React.ReactNode, image: string
             </div>
         </div>
     )
+}
+
+export async function ReviewCard(props: {image: string, name: string, score: number, link: string, alt: string, price?: string}){
+    return(
+        <LitContainer>
+            <div className="flex m-auto">
+                <Image src={props.image} alt={props.alt} width={200} height={200} className="size-[50%] rounded-tl-lg rounded-bl-lg border-r-4 border-primary"/>
+                <div className="flex flex-col mx-auto p-4">
+                    <div className="flex justify-evenly w-full border-b-4 border-primary">
+                        <h2 className="text-6xl">{props.name}</h2>
+                    </div>
+                    <div className="m-auto flex flex-col">
+                        <span className="text-primary mb-16 text-6xl">{`${props.score}/10`}</span>
+                        {props.price? <h2 className="text-4xl text-primary mb-3">{`$${props.price}`}</h2> : null}
+                        <Button asChild>
+                            <Link href={props.link} rel="nofollow">
+                                Buy Here
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </LitContainer>
+    )
+}
+
+export async function MDXComponent({ mdxSource }: Props){
+    return <MDXRemote {...mdxSource} />
 }

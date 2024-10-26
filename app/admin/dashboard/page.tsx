@@ -1,14 +1,22 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
-import { deleteBlog, getAllPosts } from "@/actions/actions"
+import { deleteBlog, getAllPosts, isUserAdmin } from "@/actions/actions"
 import { redirect } from "next/navigation"
+import { getSession } from "@/app/auth/auth"
 
 export default async function Dashboard(){
     
-    const [posts] = await Promise.all([getAllPosts()])
+    const [posts, session] = await Promise.all([getAllPosts(), getSession()])
     //const posts = await getAllPosts()
     //const courses = await getAllCourses()
+    //if(session){
+    //    const userAdmin = await isUserAdmin(session.user.email)
+    //    console.log(userAdmin)
+    //    if(!userAdmin){
+    //        redirect("/")
+    //    }
+    //}
 
     return(
         <div className='display: flex flex-col w-full justify-center items-center'>

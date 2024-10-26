@@ -7,6 +7,7 @@ import { Providers } from "../app/blog/[slug]/providers";
 //import { Toaster } from "@/components/ui/toaster";
 
 import { GoogleAnalytics } from '@next/third-parties/google'
+import Script from "next/script";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -40,6 +41,7 @@ export default function RootLayout({
   return (
     
     <html lang="en">
+      <script async src="https://epnt.ebay.com/static/epn-smart-tools.js"></script>
       <meta name="google-adsense-account" content="ca-pub-9522353240660967"></meta>
       <body className={`${nunito.className} top-0`}>
         <ThemeProvider
@@ -57,6 +59,12 @@ export default function RootLayout({
           <script async>hljs.highlightOnLoad();</script>
           </Providers>
         </ThemeProvider>
+        <Script
+        src="https://ezojs.com/ezoic/sa.min.js"
+        async={true}
+        strategy="beforeInteractive"
+        crossOrigin="anonymous"
+      />
       </body>
       {/*<GoogleAnalytics gaId="G-ZJMTS01ZQZ" />*/}
     </html>

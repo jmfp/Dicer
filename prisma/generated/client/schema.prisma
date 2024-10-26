@@ -21,13 +21,16 @@ model Post {
   content     String
   image       String
   description String
-  category    String
+  category    String //id of category post is in
   previous    String? //slug of previous post in series
   next        String? //slug of next post in series
   published   Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   keywords    String[]
+  ebayImage   String? //TODO: for now, ebay images are uploaded per post, but should transition to dropdown where user can choose from uploaded images
+  ebaySearch  String? //search string for ebay ad
+  ebayProduct String?
   //author   User      @relation(fields: [authorId], references: [id])
   //authorId String    @db.ObjectId
   //comments Comment[]
@@ -49,4 +52,14 @@ model Course {
   ownerId   String //owner of course
   price     Float    @default(0.00)
   completed Boolean  @default(false)
+}
+
+model Image {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  base64 String //base64 for an image
+}
+
+model Category {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
 }

@@ -125,7 +125,10 @@ exports.Prisma.PostScalarFieldEnum = {
   published: 'published',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  keywords: 'keywords'
+  keywords: 'keywords',
+  ebayImage: 'ebayImage',
+  ebaySearch: 'ebaySearch',
+  ebayProduct: 'ebayProduct'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -146,6 +149,16 @@ exports.Prisma.CourseScalarFieldEnum = {
   completed: 'completed'
 };
 
+exports.Prisma.ImageScalarFieldEnum = {
+  id: 'id',
+  base64: 'base64'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -160,7 +173,9 @@ exports.Prisma.QueryMode = {
 exports.Prisma.ModelName = {
   Post: 'Post',
   User: 'User',
-  Course: 'Course'
+  Course: 'Course',
+  Image: 'Image',
+  Category: 'Category'
 };
 
 /**

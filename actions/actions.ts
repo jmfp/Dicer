@@ -46,11 +46,16 @@ const toBase64FromPath = async (file: any) =>{
     return JSON.stringify({ base64: base64String });
 }
 
+export async function isUserAdmin(email: any){
+    const user = await prisma.user.findUnique({where:{email}})
+    return user?.admin
+}
+
 export async function validateUser(user: any){
     try {
         const res = await prisma.user.findUnique({where:{email:user.email}})
         if (res && user.password === res.password){
-            console.log(res)
+            //console.log(res)
             return (true)
         }
     } catch (error: any) {
@@ -62,6 +67,9 @@ export async function validateUser(user: any){
 export const addBlog = async (formData: any) => {
     const title = formData.get("title")
     const image = formData.get("image")
+    const ebayImage = formData.get("ebayImage")
+    const ebaySearch = formData.get("ebaySearch")
+    const ebayProduct = formData.get("ebayProduct")
     const slug = formData.get("slug")
     const description = formData.get("description")
     const content = formData.get("content")
@@ -77,7 +85,10 @@ export const addBlog = async (formData: any) => {
             description: description,
             content: content, 
             category: category,
-            keywords: keywordList
+            keywords: keywordList,
+            ebayImage: await toBase64(ebayImage),
+            ebaySearch,
+            ebayProduct
         }
     })
 

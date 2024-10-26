@@ -14,20 +14,26 @@ import { useForm } from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Button } from "@/components/ui/button";
-import { addBlog } from "@/actions/actions";
+import { addBlog, isUserAdmin } from "@/actions/actions";
 import { Textarea } from "@/components/ui/textarea";
+import { useEffect } from "react";
+import { getSession } from "@/app/auth/auth";
+import { redirect } from "next/navigation";
 
 export default function AddPost(){
 
     const formSchema = z.object({
         title: z.string().min(5, {message: 'Minimum title of 5 characters'}),
         image: z.instanceof(File),
+        ebayImage: z.instanceof(File),
         slug: z.string().min(1, {message: 'slug is required'}),
         description: z.string().min(2, {message: 'description is required'}),
         content: z.string().min(1, {message: 'content is required'}),
         category: z.string().min(1, {message: 'category is required'}),
         previous: z.string(),
         next: z.string(),
+        ebaySearch: z.string(),
+        ebayProduct: z.string(),
         keywords: z.array(z.string()),
         keywords_string: z.string()
     })
@@ -38,12 +44,15 @@ export default function AddPost(){
         defaultValues:{
             title: '',
             image: new File([], ""),
+            ebayImage: new File([], ""),
             slug: '',
             description: '',
             content: '',
             category: '',
             previous: '',
             next: '',
+            ebaySearch: '',
+            ebayProduct: '',
             keywords: [''],
             keywords_string: ''
         }
@@ -56,11 +65,14 @@ export default function AddPost(){
         formData.append("title", values.title)
         formData.append("description", values.description)
         formData.append("image", values.image)
+        formData.append("ebayImage", values.ebayImage)
         formData.append("slug", values.slug)
         formData.append("content", values.content)
         formData.append("category", values.category)
         formData.append("previous", values.previous)
         formData.append("next", values.next)
+        formData.append("ebaySearch", values.ebaySearch)
+        formData.append("ebayProduct", values.ebayProduct)
         formData.append("keywords", values.keywords_string)
         console.log(formData.get("image"))
         await addBlog(formData)
@@ -77,12 +89,25 @@ export default function AddPost(){
             <main className="p-24">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
-                <FormField
+                    <FormField
                         control={form.control}
                         name="image"
                         render={({ field: { value, onChange, ...fieldProps } }) =>(
                             <FormItem>
                                 <FormLabel>Image</FormLabel>
+                                <FormControl>
+                                    <Input {...fieldProps} type="file" onChange={(event) => onChange(event.target.files && event.target.files[0])}/>
+                                </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="ebayImage"
+                        render={({ field: { value, onChange, ...fieldProps } }) =>(
+                            <FormItem>
+                                <FormLabel>Ebay Image</FormLabel>
                                 <FormControl>
                                     <Input {...fieldProps} type="file" onChange={(event) => onChange(event.target.files && event.target.files[0])}/>
                                 </FormControl>
@@ -177,6 +202,32 @@ export default function AddPost(){
                                 <FormLabel>Next Article Slug</FormLabel>
                                 <FormControl>
                                     <Input placeholder="Next Article Slug" onChange={field.onChange}/>
+                                </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="ebaySearch"
+                        render={({field}) =>(
+                            <FormItem>
+                                <FormLabel>Ebay search term</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="Ebay search term" onChange={field.onChange}/>
+                                </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="ebayProduct"
+                        render={({field}) =>(
+                            <FormItem>
+                                <FormLabel>Ebay product name</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="Ebay product name" onChange={field.onChange}/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
