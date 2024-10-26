@@ -55,14 +55,6 @@ export async function generateMetadata({params}: {params: {slug: string}}): Prom
   }
 }
 
-export async function getInitialProps({params}: {params: {slug: string}}) {
-  // MDX text - can be from a local file, database, anywhere
-  const content = await prisma.post.findMany({where: {slug: params.slug}})
-  const source = content[0].content
-  const mdxSource = await serialize(source)
-  return { props: { source: mdxSource } }
-}
-
 //fetch posts from mongodb
 async function fetchPosts(slug: string){
   const posts = await prisma.post.findMany({where: {slug: slug}})
