@@ -20,7 +20,9 @@ export default async function Services() {
         <div className="size-[75%] flex flex-col m-auto mt-6">
           <h2 className="text-primary text-4xl">Latest Post</h2>
           <BlogCard image={posts[posts.length - 1].image} title={posts[posts.length - 1].title} slug={posts[posts.length - 1].slug} description={posts[posts.length - 1].description}/>
-          <ins className="epn-placement" data-config-id="fff10dbd146b6c47655b729b"></ins>
+          <div className="m-auto my-6">
+            <ins className="epn-placement" data-config-id="fff10dbd146b6c47655b729b"></ins>
+          </div>
         </div>
       </div>
     </div>
