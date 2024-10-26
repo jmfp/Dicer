@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 export default async function Ebay(props: {image: any, search: any, productName: any}) {
     const searchString = props.search.replace(/ /g, '+');
   return (
-    <div className="flex flex-col w-[25%] m-auto">
+    <div className="flex flex-col w-[25%] m-auto max-sm:w-[90%]">
         <LitContainer>
         <Image className="rounded-tl-lg rounded-bl-lg" src={props.image} alt="" width={200} height={200}/>
             <div className="flex flex-col m-auto p-2">
