@@ -61,7 +61,7 @@ async function fetchPosts(slug: string){
   return (posts[0])
 }
 
-export default async function Article({params, source}:{params: {slug: string}, source: any}){
+export default async function Article({params}:{params: {slug: string}}){
     //const data: article = await getData(params.slug)
     const post = await getPost(params.slug)
     const content = await serialize(post.content)
