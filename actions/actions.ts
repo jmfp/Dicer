@@ -98,11 +98,28 @@ export const addBlog = async (formData: any) => {
 }
 
 export const deleteBlog = async(slug: any) =>{
-    prisma.post.delete({where: {slug: slug}})
+    await prisma.post.delete({where: {slug: slug}})
     revalidatePath('/admin/dashboard')
 }
 
 export const getAllPosts = async() => {
     //revalidatePath('/admin/dashboard')
     return await prisma.post.findMany({})
+}
+
+export const uploadImage = async(image: any) =>{
+    const base64 = await toBase64(image)
+    prisma.image.create({data:{base64}})
+}
+
+export const getImages = async(id?: string) =>{
+    return await prisma.image.findMany({where:{id}})
+}
+
+export const addCategory = async(name: string) =>{
+    prisma.category.create({data:{name}})
+}
+
+export const getCategories = async(id?: string) =>{
+    return await prisma.category.findMany({where:{id}})
 }
