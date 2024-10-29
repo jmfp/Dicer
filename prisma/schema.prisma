@@ -14,7 +14,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
+model Post{
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   slug        String    @unique
   title       String
@@ -37,7 +37,7 @@ model Post {
   //comments Comment[]
 }
 
-model User {
+model User{
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   email       String    @unique
   password    String
@@ -46,7 +46,7 @@ model User {
   admin       Boolean   @default(false)
 }
 
-model Course {
+model Course{
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   chapters    String[]  //urls for youtube videos
   titles      String[]  //titles for each chapter

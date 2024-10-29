@@ -116,8 +116,10 @@ export const getImages = async(id?: string) =>{
     return await prisma.image.findMany({where:{id}})
 }
 
-export const addCategory = async(name: string) =>{
-    prisma.category.create({data:{name}})
+export const addCategory = async(name: any) =>{
+    const cat = name.get("newcat")
+    prisma.category.create({data:{name: cat}})
+    revalidatePath("/admin/posts/new")
 }
 
 export const getCategories = async(id?: string) =>{
