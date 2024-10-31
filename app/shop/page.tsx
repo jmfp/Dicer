@@ -77,9 +77,9 @@ export default async function Shop() {
         <form action={async (formdata: FormData) =>{
             'use server'
             redirect(`/search/${formdata.get("search")}`)
-        }}>
-            <Input name="search" className="caret-primary" placeholder="Search for games"/>
-            <Button type="submit">
+        }} className="flex flex-col m-auto">
+            <Input name="search" className="caret-primary w-[90%] m-auto mt-6" placeholder="Search for games"/>
+            <Button type="submit" className=" w-[80%] m-auto my-6 ">
                 Search
             </Button>
         </form>
