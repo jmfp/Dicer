@@ -62,6 +62,16 @@ export async function LitContainer(props: {children?: React.ReactNode}){
     )
 }
 
+export async function LitImage(props: {children?: React.ReactNode}){
+    return(
+        <div className="flex relative bg-slate-900 w-full h-full rounded-lg m-auto my-6">
+            <div className={`${"after:blur-md after:absolute after:size-full after:z-[-2] after:top-[50%] after:left-[50%] after:transform after:translate-x-[-50%] after:translate-y-[-50%] after:bg-gradient-conic-spin from-primary via-primary to-primary after:saturate-200 after:animate-pulse"} ${"rgbGradient"}`}>
+            </div>
+            {props.children}
+        </div>
+    )
+}
+
 export async function BlogCard(props: {children?: React.ReactNode, image: string, title: string, slug: string, description: string}){
     return(
         <div className="h-full w-[100%] m-auto flex flex-col border border-collapse rounded-lg hover:border-primary bg-cover">

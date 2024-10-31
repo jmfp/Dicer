@@ -22,7 +22,7 @@ const nextConfig = {
         includePaths: [path.join(__dirname, 'styles')],
       },    
     images:{
-        domains: ["images.unsplash.com", "cdn.sanity.io", "jefrydco.id", "images.pexels.com", "www.ebayadservices.com"]
+        domains: ["images.unsplash.com", "cdn.sanity.io", "jefrydco.id", "images.pexels.com", "www.ebayadservices.com", "images.igdb.com"]
     },
     webpack: (config, { isServer }) => {
         if (isServer) {

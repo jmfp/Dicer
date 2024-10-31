@@ -128,7 +128,8 @@ exports.Prisma.PostScalarFieldEnum = {
   keywords: 'keywords',
   ebayImage: 'ebayImage',
   ebaySearch: 'ebaySearch',
-  ebayProduct: 'ebayProduct'
+  ebayProduct: 'ebayProduct',
+  views: 'views'
 };
 
 exports.Prisma.UserScalarFieldEnum = {

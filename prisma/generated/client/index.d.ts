@@ -1203,8 +1203,18 @@ export namespace Prisma {
 
   export type AggregatePost = {
     _count: PostCountAggregateOutputType | null
+    _avg: PostAvgAggregateOutputType | null
+    _sum: PostSumAggregateOutputType | null
     _min: PostMinAggregateOutputType | null
     _max: PostMaxAggregateOutputType | null
+  }
+
+  export type PostAvgAggregateOutputType = {
+    views: number | null
+  }
+
+  export type PostSumAggregateOutputType = {
+    views: number | null
   }
 
   export type PostMinAggregateOutputType = {
@@ -1223,6 +1233,7 @@ export namespace Prisma {
     ebayImage: string | null
     ebaySearch: string | null
     ebayProduct: string | null
+    views: number | null
   }
 
   export type PostMaxAggregateOutputType = {
@@ -1241,6 +1252,7 @@ export namespace Prisma {
     ebayImage: string | null
     ebaySearch: string | null
     ebayProduct: string | null
+    views: number | null
   }
 
   export type PostCountAggregateOutputType = {
@@ -1260,9 +1272,18 @@ export namespace Prisma {
     ebayImage: number
     ebaySearch: number
     ebayProduct: number
+    views: number
     _all: number
   }
 
+
+  export type PostAvgAggregateInputType = {
+    views?: true
+  }
+
+  export type PostSumAggregateInputType = {
+    views?: true
+  }
 
   export type PostMinAggregateInputType = {
     id?: true
@@ -1280,6 +1301,7 @@ export namespace Prisma {
     ebayImage?: true
     ebaySearch?: true
     ebayProduct?: true
+    views?: true
   }
 
   export type PostMaxAggregateInputType = {
@@ -1298,6 +1320,7 @@ export namespace Prisma {
     ebayImage?: true
     ebaySearch?: true
     ebayProduct?: true
+    views?: true
   }
 
   export type PostCountAggregateInputType = {
@@ -1317,6 +1340,7 @@ export namespace Prisma {
     ebayImage?: true
     ebaySearch?: true
     ebayProduct?: true
+    views?: true
     _all?: true
   }
 
@@ -1358,6 +1382,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: PostAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PostSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PostMinAggregateInputType
@@ -1388,6 +1424,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PostCountAggregateInputType | true
+    _avg?: PostAvgAggregateInputType
+    _sum?: PostSumAggregateInputType
     _min?: PostMinAggregateInputType
     _max?: PostMaxAggregateInputType
   }
@@ -1409,7 +1447,10 @@ export namespace Prisma {
     ebayImage: string | null
     ebaySearch: string | null
     ebayProduct: string | null
+    views: number
     _count: PostCountAggregateOutputType | null
+    _avg: PostAvgAggregateOutputType | null
+    _sum: PostSumAggregateOutputType | null
     _min: PostMinAggregateOutputType | null
     _max: PostMaxAggregateOutputType | null
   }
@@ -1445,6 +1486,7 @@ export namespace Prisma {
     ebayImage?: boolean
     ebaySearch?: boolean
     ebayProduct?: boolean
+    views?: boolean
   }, ExtArgs["result"]["post"]>
 
 
@@ -1465,6 +1507,7 @@ export namespace Prisma {
     ebayImage?: boolean
     ebaySearch?: boolean
     ebayProduct?: boolean
+    views?: boolean
   }
 
 
@@ -1488,6 +1531,7 @@ export namespace Prisma {
       ebayImage: string | null
       ebaySearch: string | null
       ebayProduct: string | null
+      views: number
     }, ExtArgs["result"]["post"]>
     composites: {}
   }
@@ -1896,6 +1940,7 @@ export namespace Prisma {
     readonly ebayImage: FieldRef<"Post", 'String'>
     readonly ebaySearch: FieldRef<"Post", 'String'>
     readonly ebayProduct: FieldRef<"Post", 'String'>
+    readonly views: FieldRef<"Post", 'Int'>
   }
     
 
@@ -5726,7 +5771,8 @@ export namespace Prisma {
     keywords: 'keywords',
     ebayImage: 'ebayImage',
     ebaySearch: 'ebaySearch',
-    ebayProduct: 'ebayProduct'
+    ebayProduct: 'ebayProduct',
+    views: 'views'
   };
 
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
@@ -5829,20 +5875,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -5853,6 +5885,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -5879,6 +5925,7 @@ export namespace Prisma {
     ebayImage?: StringNullableFilter<"Post"> | string | null
     ebaySearch?: StringNullableFilter<"Post"> | string | null
     ebayProduct?: StringNullableFilter<"Post"> | string | null
+    views?: IntFilter<"Post"> | number
   }
 
   export type PostOrderByWithRelationInput = {
@@ -5898,6 +5945,7 @@ export namespace Prisma {
     ebayImage?: SortOrder
     ebaySearch?: SortOrder
     ebayProduct?: SortOrder
+    views?: SortOrder
   }
 
   export type PostWhereUniqueInput = Prisma.AtLeast<{
@@ -5920,6 +5968,7 @@ export namespace Prisma {
     ebayImage?: StringNullableFilter<"Post"> | string | null
     ebaySearch?: StringNullableFilter<"Post"> | string | null
     ebayProduct?: StringNullableFilter<"Post"> | string | null
+    views?: IntFilter<"Post"> | number
   }, "id" | "slug">
 
   export type PostOrderByWithAggregationInput = {
@@ -5939,9 +5988,12 @@ export namespace Prisma {
     ebayImage?: SortOrder
     ebaySearch?: SortOrder
     ebayProduct?: SortOrder
+    views?: SortOrder
     _count?: PostCountOrderByAggregateInput
+    _avg?: PostAvgOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
     _min?: PostMinOrderByAggregateInput
+    _sum?: PostSumOrderByAggregateInput
   }
 
   export type PostScalarWhereWithAggregatesInput = {
@@ -5964,6 +6016,7 @@ export namespace Prisma {
     ebayImage?: StringNullableWithAggregatesFilter<"Post"> | string | null
     ebaySearch?: StringNullableWithAggregatesFilter<"Post"> | string | null
     ebayProduct?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    views?: IntWithAggregatesFilter<"Post"> | number
   }
 
   export type UserWhereInput = {
@@ -6173,6 +6226,7 @@ export namespace Prisma {
     ebayImage?: string | null
     ebaySearch?: string | null
     ebayProduct?: string | null
+    views?: number
   }
 
   export type PostUncheckedCreateInput = {
@@ -6192,6 +6246,7 @@ export namespace Prisma {
     ebayImage?: string | null
     ebaySearch?: string | null
     ebayProduct?: string | null
+    views?: number
   }
 
   export type PostUpdateInput = {
@@ -6210,6 +6265,7 @@ export namespace Prisma {
     ebayImage?: NullableStringFieldUpdateOperationsInput | string | null
     ebaySearch?: NullableStringFieldUpdateOperationsInput | string | null
     ebayProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostUncheckedUpdateInput = {
@@ -6228,6 +6284,7 @@ export namespace Prisma {
     ebayImage?: NullableStringFieldUpdateOperationsInput | string | null
     ebaySearch?: NullableStringFieldUpdateOperationsInput | string | null
     ebayProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostCreateManyInput = {
@@ -6247,6 +6304,7 @@ export namespace Prisma {
     ebayImage?: string | null
     ebaySearch?: string | null
     ebayProduct?: string | null
+    views?: number
   }
 
   export type PostUpdateManyMutationInput = {
@@ -6265,6 +6323,7 @@ export namespace Prisma {
     ebayImage?: NullableStringFieldUpdateOperationsInput | string | null
     ebaySearch?: NullableStringFieldUpdateOperationsInput | string | null
     ebayProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostUncheckedUpdateManyInput = {
@@ -6283,6 +6342,7 @@ export namespace Prisma {
     ebayImage?: NullableStringFieldUpdateOperationsInput | string | null
     ebaySearch?: NullableStringFieldUpdateOperationsInput | string | null
     ebayProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserCreateInput = {
@@ -6520,6 +6580,17 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type PostCountOrderByAggregateInput = {
     id?: SortOrder
     slug?: SortOrder
@@ -6537,6 +6608,11 @@ export namespace Prisma {
     ebayImage?: SortOrder
     ebaySearch?: SortOrder
     ebayProduct?: SortOrder
+    views?: SortOrder
+  }
+
+  export type PostAvgOrderByAggregateInput = {
+    views?: SortOrder
   }
 
   export type PostMaxOrderByAggregateInput = {
@@ -6555,6 +6631,7 @@ export namespace Prisma {
     ebayImage?: SortOrder
     ebaySearch?: SortOrder
     ebayProduct?: SortOrder
+    views?: SortOrder
   }
 
   export type PostMinOrderByAggregateInput = {
@@ -6573,6 +6650,11 @@ export namespace Prisma {
     ebayImage?: SortOrder
     ebaySearch?: SortOrder
     ebayProduct?: SortOrder
+    views?: SortOrder
+  }
+
+  export type PostSumOrderByAggregateInput = {
+    views?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -6632,6 +6714,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -6775,6 +6873,14 @@ export namespace Prisma {
     push?: string | string[]
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type CourseCreatechaptersInput = {
     set: string[]
   }
@@ -6846,6 +6952,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6861,17 +6978,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6924,6 +7030,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type NestedFloatFilter<$PrismaModel = never> = {

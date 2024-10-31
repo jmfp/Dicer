@@ -70,7 +70,6 @@ export default async function Article({params}:{params: {slug: string}}){
       <div className='display: flex h-full flex-col overflow-hidden top-0'>
         <ParallaxHero image={post.image} height={50}/>
         <div className='p-1'>
-        <ins className="epn-placement" data-config-id="fff03d0f6c02747cb0c58ea5"></ins>
           <div className="w-[100vw] content-center flex-auto p-10 prose-h1:text-primary">
           <h1 className="text-3xl font-extrabold text-center">{post.title}</h1>
             <div className="mt-24 prose m-[auto] prose-violet prose-xl dark:prose-invert prose-h2:text-primary prose-li:color-primary">

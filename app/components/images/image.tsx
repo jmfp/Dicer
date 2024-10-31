@@ -34,6 +34,28 @@ export async function ParallaxHero(props:{image: string, height: number, text?: 
     )
 }
 
+export async function ParallaxHeroShort(props:{image: string, height: number, text?: string, children?: ReactNode, style?: string}) {
+    return(
+        <div className={`h-full`}>
+            <div
+            className={`w-full bg-cover bg-center bg-fixed bg-no-repeat max-sm:scale-100`}
+            style={{
+              backgroundImage: `url(${props.image})`,
+              paddingTop: `${props.height}%`
+            }}
+        >
+            <div className='display: flex m-auto'>
+                <p className="m-auto">{props.text}</p>
+                <div className="m-auto">
+                    {props.children}
+                </div>
+            </div>
+        </div>
+            
+        </div>
+    )
+}
+
 export async function ParallaxHeroContainer(props:{image: string, height: number, text?: string, children?: ReactNode, style?: string, buttonText?: string}) {
     
     return(

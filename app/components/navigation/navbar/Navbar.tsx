@@ -6,6 +6,7 @@ import Logo from "../../logo/Logo";
 //import Button from "../../button";
 import { PiGithubLogoThin, PiLinkedinLogoThin } from "react-icons/pi";
 import { SiDiscord, SiYoutube } from "react-icons/si"
+import { HiShoppingCart } from "react-icons/hi"
 
 const NavBar = () =>{
     return(
@@ -26,6 +27,7 @@ function SocialLinks(){
   return(
     <div className="flex items-center gap-2">
       <Link href="/blog" className="hover:text-primary text-2xl">Blog</Link>
+      <Link href="/shop" className="hover:text-primary text-2xl flex">{<HiShoppingCart className="text-primary m-auto"/>} Shop</Link>
         <Link
           href="https://discord.gg/QSv2fdMpmW"
           target="_blank"

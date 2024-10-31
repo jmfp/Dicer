@@ -31,6 +31,7 @@ model Post {
   ebayImage   String? //TODO: for now, ebay images are uploaded per post, but should transition to dropdown where user can choose from uploaded images
   ebaySearch  String? //search string for ebay ad
   ebayProduct String?
+  views       Int      @default(0)
   //author   User      @relation(fields: [authorId], references: [id])
   //authorId String    @db.ObjectId
   //comments Comment[]
