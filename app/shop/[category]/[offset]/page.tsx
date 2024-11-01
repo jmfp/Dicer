@@ -70,7 +70,6 @@ export default async function ShopCategory({params}:{params: {category: string, 
               },
               body: `fields *; where id = (${id});`
           })
-          //console.log(covers.json())
           return covers.json()
     }
     
@@ -78,7 +77,6 @@ export default async function ShopCategory({params}:{params: {category: string, 
     const platform = await getPlatform(token, 46)
     const games = await fetchGames(token, platform[0].id);
     const logo = await getPlatformLogo(token, platform[0].platform_logo)
-    console.log(logo[0].image_id)
 
 
   return (

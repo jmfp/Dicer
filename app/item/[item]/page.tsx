@@ -53,7 +53,6 @@ export default async function ShopItem({params}: {params: {item: string}}) {
         },
         body: `fields *; where id = (${id});`
     })
-    //console.log(covers.json())
     return covers.json()
   }
 
@@ -93,7 +92,6 @@ export default async function ShopItem({params}: {params: {item: string}}) {
   const platform = await getPlatform(token, games[0].platforms[0])
   const video = games[0].videos ? await fetchVideo(token, games[0].videos[0]) : null
   const heroUrl = screenshots[0].image_id == undefined ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
-  console.log(video)
   const ebayURL = `https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${platform[0].name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`
   return (
     <div>
@@ -101,8 +99,8 @@ export default async function ShopItem({params}: {params: {item: string}}) {
       <div className="p-6">
         <LitContainer>
           <div className="flex flex-col">
-            <div className="flex flex-row">
-              <Image src={coverUrl} height={200} width={200} alt={games[0].name} className="size-[800px] rounded-tl-lg rounded-bl-lg border-r-2 border-primary"/>
+            <div className="flex flex-row max-sm:flex-col">
+              <Image src={coverUrl} height={200} width={200} alt={games[0].name} className="size-[800px] rounded-tl-lg rounded-bl-lg border-r-2 border-primary max-sm:rounded-tr-lg max-sm:border-b-2 max-sm:border-r-0 max-sm:rounded-bl-none"/>
               <div className="flex flex-col p-6">
                 <h1 className="text-primary text-4xl m-auto">{games[0].name}</h1>
                 {games[0].storyline == undefined ? null : 

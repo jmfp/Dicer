@@ -36,20 +36,17 @@ export default async function Search({params}: {params: {query: string}}) {
             },
             body: `fields *; where id = (${id});`
         })
-        //console.log(covers.json())
         return covers.json()
     }
 
     const token = await fetchData()
     const games = await fetchGames(token)
-    console.log(games)
   return (
     <div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-5 mx-5 gap-5 content-center mb-5">
             
             {games.map(async(game: any, idx: number) => {
                 const cover = await fetchCover(token, parseInt(game.cover))
-                console.log(cover)
                 const img = cover[0].image_id != undefined ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
                 return(
                   <Link key={idx} href={`/item/${game.id}`}>
