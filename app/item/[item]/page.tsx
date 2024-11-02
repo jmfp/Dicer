@@ -100,7 +100,7 @@ export default async function ShopItem({params}: {params: {item: string}}) {
         <LitContainer>
           <div className="flex flex-col">
             <div className="flex flex-row max-sm:flex-col">
-              <Image src={coverUrl} height={200} width={200} alt={games[0].name} className="size-[800px] rounded-tl-lg rounded-bl-lg border-r-2 border-primary max-sm:rounded-tr-lg max-sm:border-b-2 max-sm:border-r-0 max-sm:rounded-bl-none max-sm:size-[200px]"/>
+              <Image src={coverUrl} height={200} width={200} alt={games[0].name} className="size-[800px] rounded-tl-lg rounded-bl-lg border-r-2 border-primary max-sm:rounded-tr-lg max-sm:border-b-2 max-sm:border-r-0 max-sm:rounded-bl-none max-sm:h-[200px] max-sm:width-full"/>
               <div className="flex flex-col p-6">
                 <h1 className="text-primary text-4xl m-auto">{games[0].name}</h1>
                 {games[0].storyline == undefined ? null : 
@@ -126,7 +126,7 @@ export default async function ShopItem({params}: {params: {item: string}}) {
         </LitContainer>
         {video ? 
         <LitContainer>
-          <iframe src={`https://www.youtube.com/embed/${video[0].video_id}`} allowFullScreen className="w-full h-[900px] rounded-lg max-sm:height-[225px]"/>
+          <iframe src={`https://www.youtube.com/embed/${video[0].video_id}`} allowFullScreen className="w-full h-[900px] rounded-lg max-sm:h-[225px]"/>
         </LitContainer> : null}
         
       </div>
