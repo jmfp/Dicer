@@ -66,7 +66,7 @@ export default function RootLayout({
         crossOrigin="anonymous"
       />
       </body>
-      {/*<GoogleAnalytics gaId="G-ZJMTS01ZQZ" />*/}
+      <GoogleAnalytics gaId="G-SS0TX6EENX" />
     </html>
   );
 }

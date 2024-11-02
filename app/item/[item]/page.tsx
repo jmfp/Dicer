@@ -2,8 +2,48 @@ import { LitContainer } from "@/app/components/container/container"
 import { ParallaxHero, ParallaxHeroShort } from "@/app/components/images/image"
 import { Button } from "@/components/ui/button"
 import axios from "axios"
+import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+
+export async function generateMetadata({params}: {params: {item: string}}): Promise<Metadata>{
+  const fetchData = async () =>{
+    const response = await axios.post(`https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_DEV_CLIENT_ID}&client_secret=${process.env.TWITCH_DEV_SECRET}&grant_type=client_credentials`)
+    return response.data.access_token
+  }
+  const token = await fetchData()
+
+  const fetchGames = async (token: string, id: number) =>{
+    const games = await fetch(
+        "https://api.igdb.com/v4/games",
+        { method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
+            'Authorization': `Bearer ${token}`,
+          },
+          body: `fields *; where id = (${id});`
+      })
+      return games.json()
+  }
+  const game = await fetchGames(token, parseInt(params.item))
+  const keywords = game[0].name
+  return{
+    title: game[0].name,
+    description: game[0].name,
+    keywords: keywords,
+    openGraph: {
+      images: [
+        {
+          url: "/images/hero.png" 
+        }
+      ]
+    },
+    twitter:{
+      card: "summary_large_image"
+    }
+  }
+}
 
 export default async function ShopItem({params}: {params: {item: string}}) {
 
@@ -100,7 +140,6 @@ export default async function ShopItem({params}: {params: {item: string}}) {
         <LitContainer>
           <div className="flex flex-col">
             <div className="flex flex-row max-sm:flex-col">
-              
               <Image src={coverUrl} height={200} width={200} alt={games[0].name} className="size-[800px] rounded-tl-lg rounded-bl-lg border-r-2 border-primary max-sm:rounded-tr-lg max-sm:border-b-2 max-sm:border-r-0 max-sm:rounded-bl-none max-sm:h-[400px] max-sm:w-full"/>
               <div className="flex flex-col p-6">
                 <h1 className="text-primary text-4xl m-auto">{games[0].name}</h1>
