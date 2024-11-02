@@ -66,8 +66,8 @@ export default async function Shop() {
               },
               body: `fields *; where id = (${id});`
           })
-          return platform.json()
-      }
+        return platform.json()
+    }
 
     const token = await fetchData()
     const plats = await getPlatform(token)
@@ -78,39 +78,26 @@ export default async function Shop() {
             redirect(`/search/${formdata.get("search")}`)
         }} className="flex flex-col m-auto">
             <Input name="search" className="caret-primary w-[90%] m-auto mt-6" placeholder="Search for games"/>
-            <Button type="submit" className=" w-[80%] m-auto my-6 ">
+            <Button type="submit" className="w-[80%] m-auto my-6 ">
                 Search
             </Button>
         </form>
-    <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-5 mx-5 gap-5 content-center">
-        {/*!cats? null : 
-            cats.map((category: any, idx: number) =>
-                <Link href={`/shop/${category.name}/${0}`}>
-                    <div className="flex border-2 border-white hover:border-primary rounded-lg m-auto size-64">
-                        <span className="m-auto">{category.name}</span>
-                    </div>
-                </Link>
-            )
-        */}
-        {!plats? null : 
-            plats.map(async(plat: any, idx: number) =>{
-                //const logo = await getPlatformLogo(token, plat.platform_logo)
-                const img = images[plat.alternative_name]
-                return(
-                <Link key={idx} href={`/shop/${plat.name}/${0}`}>
-                    <LitContainer>
-                        <div className="flex justify-items-center m-auto w-[300px] h-[300px]">
-                            <Image src={img} width={200} height={200} alt={plat.name} className="m-auto"/>
-                        </div>
-                    </LitContainer>
-                </Link>
-                )
+        <div className="grid p-6 my-5 mx-5 gap-5 content-center lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+            {!plats? null : 
+                plats.map(async(plat: any, idx: number) =>{
+                    const img = images[plat.alternative_name]
+                    return(
+                        <Link key={idx} href={`/shop/${plat.name}/${0}`}>
+                            <LitContainer>
+                                <div className="flex justify-items-center m-auto w-[300px] h-[300px]">
+                                    <Image src={img} width={200} height={200} alt={plat.name} className="m-auto"/>
+                                </div>
+                            </LitContainer>
+                        </Link>
+                    )
+                })
             }
-                
-            )
-        }
-    </div>
-
+        </div>
     </div>
   )
 }

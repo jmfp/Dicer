@@ -42,7 +42,7 @@ export default function RootLayout({
     
     <html lang="en">
       <script async src="https://epnt.ebay.com/static/epn-smart-tools.js"></script>
-      <meta name="google-adsense-account" content="ca-pub-9522353240660967"></meta>
+      <meta name="google-adsense-account" content="ca-pub-9522353240660967"/>
       <body className={`${nunito.className} top-0`}>
         <ThemeProvider
           attribute="class"

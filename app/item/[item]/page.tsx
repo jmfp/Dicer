@@ -1,5 +1,6 @@
 import { LitContainer } from "@/app/components/container/container"
 import { ParallaxHero, ParallaxHeroShort } from "@/app/components/images/image"
+import { NewsletterBottomAd } from "@/app/components/newsletter/newsletter"
 import { Button } from "@/components/ui/button"
 import axios from "axios"
 import { Metadata } from "next"
@@ -168,6 +169,9 @@ export default async function ShopItem({params}: {params: {item: string}}) {
         <LitContainer>
           <iframe src={`https://www.youtube.com/embed/${video[0].video_id}`} allowFullScreen className="w-full h-[900px] rounded-lg max-sm:h-[225px] m-auto"/>
         </LitContainer> : null}
+        <LitContainer>
+          <NewsletterBottomAd offer="Free SEO Checklist"/>
+        </LitContainer>
         
       </div>
     </div>
