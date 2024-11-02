@@ -100,6 +100,7 @@ export default async function ShopItem({params}: {params: {item: string}}) {
         <LitContainer>
           <div className="flex flex-col">
             <div className="flex flex-row max-sm:flex-col">
+              
               <Image src={coverUrl} height={200} width={200} alt={games[0].name} className="size-[800px] rounded-tl-lg rounded-bl-lg border-r-2 border-primary max-sm:rounded-tr-lg max-sm:border-b-2 max-sm:border-r-0 max-sm:rounded-bl-none max-sm:h-[400px] max-sm:w-full"/>
               <div className="flex flex-col p-6">
                 <h1 className="text-primary text-4xl m-auto">{games[0].name}</h1>
