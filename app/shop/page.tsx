@@ -71,7 +71,6 @@ export default async function Shop() {
 
     const token = await fetchData()
     const plats = await getPlatform(token)
-    console.log(plats)
   return (
     <div>
         <form action={async (formdata: FormData) =>{
