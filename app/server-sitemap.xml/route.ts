@@ -22,7 +22,7 @@ export async function GET(request: Request) {
             'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
             'Authorization': `Bearer ${token}`,
           },
-          body: `fields *; where release_dates.platform = (${platform}); limit 100; sort name;`
+          body: `fields *; where release_dates.platform = (${platform}); limit 500; sort name;`
       })
     return games.json()
       
@@ -63,10 +63,9 @@ export async function GET(request: Request) {
   //getting games for each system
   //const [game1, game2, game3, game4, game5, game6, game7, game8, game9, game10, game11, game12, game13, game14, game15, game16]//, //game17,
     //game18, game19, game20, game21
-    const [game1, game2, game3, game4, game5, game6, game7, game8, game9, game10, game11, game12, game13, game14, game15, game16] = await Promise.all([fetchGames(token, plats[0]), fetchGames(token, plats[1]), fetchGames(token, plats[2]), fetchGames(token, plats[3]), fetchGames(token, plats[4]),
+    const [game1, game2, game3, game4, game5, game6, game7, game8, game9, game10, game11, game12, game13, game14, game15] = await Promise.all([fetchGames(token, plats[0]), fetchGames(token, plats[1]), fetchGames(token, plats[2]), fetchGames(token, plats[3]), fetchGames(token, plats[4]),
   fetchGames(token, plats[5]), fetchGames(token, plats[6]), fetchGames(token, plats[7]), fetchGames(token, plats[8]), fetchGames(token, plats[9]),
-  fetchGames(token, plats[10]), fetchGames(token, plats[11]), fetchGames(token, plats[12]), fetchGames(token, plats[13]), fetchGames(token, plats[14]),
-  fetchGames(token, plats[15])])//fetchGames(token, plats[18]), fetchGames(token, plats[19]),
+  fetchGames(token, plats[10]), fetchGames(token, plats[11]), fetchGames(token, plats[12]), fetchGames(token, plats[13]), fetchGames(token, plats[14])])//fetchGames(token, plats[18]), fetchGames(token, plats[19]),
   //fetchGames(token, plats[20])])
 
   const g1 = game1?.map((game: any) =>{
@@ -174,12 +173,12 @@ export async function GET(request: Request) {
     }
   })
 
-  const g16 = game16?.map((game: any) =>{
-    return {
-      loc: `https://www.britemune.com/item/${game.id}`,
-      lastmod: new Date().toISOString()
-    }
-  })
+  //const g16 = game16?.map((game: any) =>{
+  //  return {
+  //    loc: `https://www.britemune.com/item/${game.id}`,
+  //    lastmod: new Date().toISOString()
+  //  }
+  //})
 
   //const g17 = game17?.map((game: any) =>{
   //  return {
@@ -246,6 +245,5 @@ export async function GET(request: Request) {
     ...g13,
     ...g14,
     ...g15,
-    ...g16,
   ])
 }
