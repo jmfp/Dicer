@@ -22,7 +22,7 @@ export async function GET(request: Request) {
             'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
             'Authorization': `Bearer ${token}`,
           },
-          body: `fields *; where release_dates.platform = (${platform}); limit 300; sort name;`
+          body: `fields *; where release_dates.platform = (${platform}); limit 100; sort name;`
       })
     return games.json()
       
