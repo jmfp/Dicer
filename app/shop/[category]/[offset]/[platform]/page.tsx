@@ -86,7 +86,7 @@ export default async function ShopCategory({params}:{params: {category: string, 
             
             {games.map(async(game: any, idx: number) => {
                 const cover = await fetchCover(token, parseInt(game.cover))
-                const img = cover[0].image_id != undefined ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
+                const img = cover[0].image_id != undefined && cover[0].image_id != null ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
                 return(
                   <Link key={idx} href={`/item/${game.id}/${params.platform}`}>
                     <LitImage>
