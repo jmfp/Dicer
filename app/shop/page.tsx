@@ -8,7 +8,6 @@ import { LitContainer } from "../components/container/container";
 import { redirect } from "next/navigation";
 
 export default async function Shop() {
-    const cats = await getCategories();
     const images:any = {
         "PS2": "/images/PS2.webp",
         "DC": "/images/Dreamcast.svg",
@@ -87,7 +86,7 @@ export default async function Shop() {
                 plats.map(async(plat: any, idx: number) =>{
                     const img = images[plat.alternative_name]
                     return(
-                        <Link key={idx} href={`/shop/${plat.name}/${0}`}>
+                        <Link key={idx} href={`/shop/${plat.name}/${0}/${plat.id}`}>
                             <LitContainer>
                                 <div className="flex justify-items-center m-auto w-[300px] h-[300px]">
                                     <Image src={img} width={200} height={200} alt={plat.name} className="m-auto"/>

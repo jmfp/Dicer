@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 //import apicalypse from 'apicalypse';
 
-export default async function ShopCategory({params}:{params: {category: string, offset: string}}) {
+export default async function ShopCategory({params}:{params: {category: string, offset: string, platform: string}}) {
 
     const searchData = {
         fields: "*", 
@@ -88,7 +88,7 @@ export default async function ShopCategory({params}:{params: {category: string, 
                 const cover = await fetchCover(token, parseInt(game.cover))
                 const img = cover[0].image_id != undefined ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
                 return(
-                  <Link key={idx} href={`/item/${game.id}`}>
+                  <Link key={idx} href={`/item/${game.id}/${params.platform}`}>
                     <LitImage>
                       <div className="flex flex-col m-auto">
                         <Image src={img} width={400} height={400} alt="" className="bg-contain m-auto"/>
@@ -104,7 +104,7 @@ export default async function ShopCategory({params}:{params: {category: string, 
             ))*/}
     </div>
       <Button asChild className="my-6 mx-6">
-        <Link href={`/shop/${params.category}/${parseInt(params.offset)+21}`}>
+        <Link href={`/shop/${params.category}/${parseInt(params.offset)+21}/${params.platform}`}>
           Next Page
         </Link>
       </Button>

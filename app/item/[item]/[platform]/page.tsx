@@ -46,7 +46,7 @@ export async function generateMetadata({params}: {params: {item: string}}): Prom
   }
 }
 
-export default async function ShopItem({params}: {params: {item: string}}) {
+export default async function ShopItem({params}: {params: {item: string, platform: string}}) {
 
   
   const fetchData = async () =>{
@@ -130,7 +130,7 @@ export default async function ShopItem({params}: {params: {item: string}}) {
   const cover = await fetchCover(token, games[0].cover)
   const coverUrl = cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
   const screenshots = await fetchScreenshots(token, games[0].screenshots)
-  const platform = await getPlatform(token, games[0].platforms[0])
+  const platform = await getPlatform(token, params.platform)
   const video = games[0].videos ? await fetchVideo(token, games[0].videos[0]) : null
   const heroUrl = screenshots[0].image_id == undefined ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
   const ebayURL = `https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${platform[0].name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`

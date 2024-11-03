@@ -49,7 +49,7 @@ export default async function Search({params}: {params: {query: string}}) {
                 const cover = await fetchCover(token, parseInt(game.cover))
                 const img = cover[0].image_id != undefined ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
                 return(
-                  <Link key={idx} href={`/item/${game.id}`}>
+                  <Link key={idx} href={`/item/${game.id}/${game.platform[0]}`}>
                     <LitImage>
                       <div className="flex flex-col m-auto">
                         <Image src={img} width={400} height={400} alt="" className="bg-contain m-auto"/>
