@@ -97,6 +97,7 @@ export default async function ShopCategory({params}:{params: {category: string, 
                     </LitImage>
                   </Link>
                 )
+                
             }
             )}
             {/*covers.map((cover: any, idx: number) =>(
