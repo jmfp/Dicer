@@ -158,8 +158,8 @@ export default async function ShopItem({params}: {params: {item: string, platfor
                 }
                 {platform.map((plat: any, idx : number) => {
                   return(
-                    <Button key={idx} asChild className="my-2">
-                      <Link href={`https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${plat.name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`} target="_blank">
+                    <Button asChild className="my-2">
+                      <Link key={idx} href={`https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${plat.name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`} target="_blank">
                         {`Shop for ${plat.name} version`}
                       </Link>
                     </Button>
