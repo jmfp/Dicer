@@ -41,15 +41,15 @@ export default async function Search({params}: {params: {query: string}}) {
 
     const token = await fetchData()
     const games = await fetchGames(token)
+    console.log(games)
   return (
     <div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-5 mx-5 gap-5 content-center mb-5">
-            
             {games.map(async(game: any, idx: number) => {
                 const cover = await fetchCover(token, parseInt(game.cover))
                 const img = cover[0].image_id != undefined ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
                 return(
-                  <Link key={idx} href={`/item/${game.id}/${game.platform[0]}`}>
+                  <Link key={idx} href={`/item/${game.id}/${game.platforms[0]}`}>
                     <LitImage>
                       <div className="flex flex-col m-auto">
                         <Image src={img} width={400} height={400} alt="" className="bg-contain m-auto"/>
@@ -59,11 +59,8 @@ export default async function Search({params}: {params: {query: string}}) {
                   </Link>
                 )
             }
-            )}
-            {/*covers.map((cover: any, idx: number) =>(
-                <Image key={idx} src={`https:${cover.url}`} width={200} height={200} alt="test" className="size-full"/>
-            ))*/}
-    </div>
+          )}
+      </div>
     </div>
   )
 }

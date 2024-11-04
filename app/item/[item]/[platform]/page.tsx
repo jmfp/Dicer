@@ -130,9 +130,9 @@ export default async function ShopItem({params}: {params: {item: string, platfor
   const cover = await fetchCover(token, games[0].cover)
   const coverUrl = cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
   const screenshots = await fetchScreenshots(token, games[0].screenshots)
-  const platform = await getPlatform(token, params.platform)
-  const video = games[0].videos ? await fetchVideo(token, games[0].videos[0]) : null
-  const heroUrl = screenshots[0].image_id == undefined ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
+  const platform = await getPlatform(token, games[0].platforms)
+  const video = games[0].videos ? await fetchVideo(token, games[0].videos) : null
+  const heroUrl = screenshots[0].image_id == undefined || screenshots[0].image_id == null ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
   const ebayURL = `https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${platform[0].name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`
   return (
     <div>
@@ -156,19 +156,27 @@ export default async function ShopItem({params}: {params: {item: string, platfor
                   <p className="m-auto text-xl">{games[0].summary}</p>
                 </div>
                 }
-                <Button asChild>
-                  <Link href={ebayURL} target="_blank">
-                    Shop on Ebay
-                  </Link>
-                </Button>
+                {platform.map((plat: any, idx : number) => {
+                  return(
+                    <Button key={idx} asChild className="my-2">
+                      <Link href={`https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${plat.name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`} target="_blank">
+                        {`Shop for ${plat.name} version`}
+                      </Link>
+                    </Button>
+                  )
+                })}
               </div>
             </div>
           </div>
         </LitContainer>
         {video ? 
-        <LitContainer>
-          <iframe src={`https://www.youtube.com/embed/${video[0].video_id}`} allowFullScreen className="w-full h-[900px] rounded-lg max-sm:h-[225px] m-auto"/>
-        </LitContainer> : null}
+          video.map((vid : any, idx: number) =>{
+            return(
+              <LitContainer>
+                <iframe key={idx} src={`https://www.youtube.com/embed/${vid.video_id}`} allowFullScreen className="w-full h-[900px] rounded-lg max-sm:h-[225px] m-auto"/>
+              </LitContainer>
+            )
+          }) : null}
         <LitContainer>
           <NewsletterBottomAd offer="Free SEO Checklist"/>
         </LitContainer>

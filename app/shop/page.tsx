@@ -86,7 +86,7 @@ export default async function Shop() {
                 plats.map(async(plat: any, idx: number) =>{
                     const img = images[plat.alternative_name]
                     return(
-                        <Link key={idx} href={`/shop/${plat.name}/${0}/${plat.id}`}>
+                        <Link key={idx} href={`/shop/${plat.name.replace(/\//g, "")}/${0}/${plat.id}`}>
                             <LitContainer>
                                 <div className="flex justify-items-center m-auto w-[300px] h-[300px]">
                                     <Image src={img} width={200} height={200} alt={plat.name} className="m-auto"/>

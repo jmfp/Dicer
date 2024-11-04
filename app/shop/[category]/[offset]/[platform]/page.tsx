@@ -25,7 +25,7 @@ export default async function ShopCategory({params}:{params: {category: string, 
                 'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
                 'Authorization': `Bearer ${token}`,
               },
-              body: `fields *; where name = "${decodeURIComponent(params.category)}";`
+              body: `fields *; where id = (${parseInt(params.platform)});`
           })
           return platform.json()
     }
@@ -59,22 +59,27 @@ export default async function ShopCategory({params}:{params: {category: string, 
     }
 
     const fetchCover = async(token: string, id: any) =>{
-          const covers = await fetch(
-            "https://api.igdb.com/v4/covers",
-            { method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
-                'Authorization': `Bearer ${token}`,
-                //"Body":  `where id = (${id});`
-              },
-              body: `fields *; where id = (${id});`
-          })
-          return covers.json()
+      try {
+        const covers = await fetch(
+          "https://api.igdb.com/v4/covers",
+          { method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
+              'Authorization': `Bearer ${token}`,
+              //"Body":  `where id = (${id});`
+            },
+            body: `fields *; where id = (${id});`
+        })
+        return covers.json()
+        
+      } catch (error : any) {
+        console.log(error.message)
+      }
     }
     
     const token = await fetchData();
-    const platform = await getPlatform(token, 46)
+    const platform = await getPlatform(token, parseInt(params.platform))
     const games = await fetchGames(token, platform[0].id);
     const logo = await getPlatformLogo(token, platform[0].platform_logo)
 
@@ -86,7 +91,7 @@ export default async function ShopCategory({params}:{params: {category: string, 
             
             {games.map(async(game: any, idx: number) => {
                 const cover = await fetchCover(token, parseInt(game.cover))
-                const img = cover[0].image_id != undefined && cover[0].image_id != null ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
+                const img = cover[0].image_id!= undefined && cover[0].image_id != null ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
                 return(
                   <Link key={idx} href={`/item/${game.id}/${params.platform}`}>
                     <LitImage>
@@ -97,7 +102,6 @@ export default async function ShopCategory({params}:{params: {category: string, 
                     </LitImage>
                   </Link>
                 )
-                
             }
             )}
             {/*covers.map((cover: any, idx: number) =>(
