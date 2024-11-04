@@ -174,8 +174,8 @@ export default async function ShopItem({params}: {params: {item: string, platfor
         {video ? 
           video.map((vid : any, idx: number) =>{
             return(
-              <LitContainer>
-                <iframe key={idx} src={`https://www.youtube.com/embed/${vid.video_id}`} allowFullScreen className="w-full h-[900px] rounded-lg max-sm:h-[225px] m-auto"/>
+              <LitContainer key={idx}>
+                <iframe src={`https://www.youtube.com/embed/${vid.video_id}`} allowFullScreen className="w-full h-[900px] rounded-lg max-sm:h-[225px] m-auto"/>
               </LitContainer>
             )
           }) : null}
