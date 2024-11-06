@@ -160,6 +160,24 @@ exports.Prisma.CategoryScalarFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.SeriesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  seasons: 'seasons'
+};
+
+exports.Prisma.SeasonScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  episodes: 'episodes'
+};
+
+exports.Prisma.EpisodeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  seasons: 'seasons'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -176,7 +194,10 @@ exports.Prisma.ModelName = {
   User: 'User',
   Course: 'Course',
   Image: 'Image',
-  Category: 'Category'
+  Category: 'Category',
+  Series: 'Series',
+  Season: 'Season',
+  Episode: 'Episode'
 };
 
 /**

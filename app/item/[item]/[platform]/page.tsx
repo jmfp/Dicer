@@ -28,6 +28,7 @@ export async function generateMetadata({params}: {params: {item: string}}): Prom
       return games.json()
   }
   const game = await fetchGames(token, parseInt(params.item))
+  console.log(game)
   const keywords = game[0].name
   return{
     title: game[0].name,

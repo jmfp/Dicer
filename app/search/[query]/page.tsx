@@ -19,12 +19,13 @@ export default async function Search({params}: {params: {query: string}}) {
                 'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
                 'Authorization': `Bearer ${token}`,
               },
-              body: `fields *; search "${decodeURIComponent(params.query)}"; limit 20;`
+              body: `fields *; search "${decodeURIComponent(params.query)}"; limit 100; where category != (${[0, 2, 3, 14, 13, 1, 7]});`
           })
           return games.json()
     }
 
     const fetchCover = async(token: string, id: any) =>{
+      try {
         const covers = await fetch(
           "https://api.igdb.com/v4/covers",
           { method: 'POST',
@@ -37,6 +38,11 @@ export default async function Search({params}: {params: {query: string}}) {
             body: `fields *; where id = (${id});`
         })
         return covers.json()
+        
+      } catch (error: any) {
+        console.log(error.message)
+        return null
+      }
     }
 
     const token = await fetchData()
@@ -47,9 +53,9 @@ export default async function Search({params}: {params: {query: string}}) {
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-5 mx-5 gap-5 content-center mb-5">
             {games.map(async(game: any, idx: number) => {
                 const cover = await fetchCover(token, parseInt(game.cover))
-                const img = cover[0].image_id != undefined ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
+                const img = cover && cover[0] && cover[0].image_id && cover[0].image_id != undefined ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
                 return(
-                  <Link key={idx} href={`/item/${game.id}/${game.platforms[0]}`}>
+                  <Link key={idx} href={`/item/${game.id}/${game.platforms? game.platforms[0] : 7}`}>
                     <LitImage>
                       <div className="flex flex-col m-auto">
                         <Image src={img} width={400} height={400} alt="" className="bg-contain m-auto"/>

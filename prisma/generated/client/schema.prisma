@@ -64,3 +64,21 @@ model Category {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
 }
+
+model Series {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  seasons String[] //ids of all seasons of a series
+}
+
+model Season {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  episodes String[] //ids of all episodes of a season
+}
+
+model Episode {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  seasons String[] //ids of all seasons of a series
+}

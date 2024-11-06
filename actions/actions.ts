@@ -125,3 +125,8 @@ export const addCategory = async(name: any) =>{
 export const getCategories = async(id?: string) =>{
     return await prisma.category.findMany({where:{id}})
 }
+
+export const addSeries = async() => {
+    //TODO: add series capabilities for original content
+    //const series = prisma.series.create()
+}
