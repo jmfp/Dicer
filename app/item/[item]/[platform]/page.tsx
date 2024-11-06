@@ -198,7 +198,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
               return(
                 <CarouselItem className="lg:basis-1/3" key={idx}>
                     <div className="border-2 rounded-lg border-primary">
-                      <Image src={screen && screen.image_id ? `https://images.igdb.com/igdb/image/upload/t_1080p/${screen.image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${games[0].name}`} className="w-full rounded-lg h-[350px] max-sm:h-[175px]"/>
+                      <Image src={screen && screen.image_id ? `https://images.igdb.com/igdb/image/upload/t_1080p/${screen.image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${games[0].name}`} className="w-full rounded-lg h-[350px] max-sm:h-[250px]"/>
                     </div>
                 </CarouselItem>
               )
