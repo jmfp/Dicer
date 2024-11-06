@@ -36,7 +36,7 @@ export async function generateMetadata({params}: {params: {item: string}}): Prom
       return games.json()
   }
   const game = await fetchGames(token, parseInt(params.item))
-  const keywords = game[0].name
+  const keywords = game[0].name ? game[0].name : "Learn More about retro games at BriteMune"
   return{
     title: game[0].name,
     description: game[0].name,
@@ -225,7 +225,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
         </div>
         <Carousel className="display:flex flex-col p-6 mx-12">
           <CarouselContent>
-            {games.similar_games ? games[0].similar_games.map(async(game: any, idx: number) => {
+            {games[0].similar_games ? games[0].similar_games.map(async(game: any, idx: number) => {
               const thisGame = await fetchGames(token, game)
               const plat = thisGame[0].platforms ? await getPlatform(token, thisGame[0].platforms[0]) : 7
               const img = await fetchCover(token, thisGame[0].cover)

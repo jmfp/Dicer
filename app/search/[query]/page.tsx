@@ -47,7 +47,6 @@ export default async function Search({params}: {params: {query: string}}) {
 
     const token = await fetchData()
     const games = await fetchGames(token)
-    console.log(games)
   return (
     <div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-5 mx-5 gap-5 content-center mb-5">

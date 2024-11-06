@@ -78,7 +78,6 @@ export default async function ShopCategory({params}:{params: {category: string, 
     const platform = await getPlatform(token, parseInt(params.platform))
     const games = await fetchGames(token, parseInt(params.platform));
     const logo = await getPlatformLogo(token, platform[0].platform_logo)
-    console.log(games[0])
 
   return (
     <div className="flex flex-col m-auto p-6">
