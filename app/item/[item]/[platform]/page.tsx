@@ -6,6 +6,14 @@ import axios from "axios"
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+
 
 export async function generateMetadata({params}: {params: {item: string}}): Promise<Metadata>{
   const fetchData = async () =>{
@@ -28,7 +36,6 @@ export async function generateMetadata({params}: {params: {item: string}}): Prom
       return games.json()
   }
   const game = await fetchGames(token, parseInt(params.item))
-  console.log(game)
   const keywords = game[0].name
   return{
     title: game[0].name,
@@ -84,32 +91,42 @@ export default async function ShopItem({params}: {params: {item: string, platfor
   }
 
   const fetchCover = async(token: string, id: any) =>{
-    const covers = await fetch(
-      "https://api.igdb.com/v4/covers",
-      { method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
-          'Authorization': `Bearer ${token}`,
-          //"Body":  `where id = (${id});`
-        },
-        body: `fields *; where id = (${id});`
-    })
-    return covers.json()
+    try {
+      const covers = await fetch(
+        "https://api.igdb.com/v4/covers",
+        { method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
+            'Authorization': `Bearer ${token}`,
+            //"Body":  `where id = (${id});`
+          },
+          body: `fields *; where id = (${id});`
+      })
+      return covers.json()
+    } catch (error : any) {
+      console.log(error.message)
+      return null
+    }
   }
 
   const fetchScreenshots = async(token: string, ids:any) =>{
-    const screenshots = await fetch(
-      "https://api.igdb.com/v4/screenshots",
-      { method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
-          'Authorization': `Bearer ${token}`,
-        },
-        body: `fields *; where id = (${ids});`
-    })
-    return screenshots.json()
+    try {
+      const screenshots = await fetch(
+        "https://api.igdb.com/v4/screenshots",
+        { method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
+            'Authorization': `Bearer ${token}`,
+          },
+          body: `fields *; where id = (${ids});`
+      })
+      return screenshots.json()
+    } catch (error : any) {
+      console.log(error.message)
+      return null
+    }
   }
 
   const getPlatform = async (token: string, id: any) =>{
@@ -129,16 +146,16 @@ export default async function ShopItem({params}: {params: {item: string, platfor
   const token = await fetchData();
   const games = await fetchGames(token, parseInt(params.item))
   const cover = await fetchCover(token, games[0].cover)
-  const coverUrl = cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
+  const coverUrl = cover[0].status != 400 && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
   const screenshots = await fetchScreenshots(token, games[0].screenshots)
   const platform = await getPlatform(token, games[0].platforms)
   const video = games[0].videos ? await fetchVideo(token, games[0].videos) : null
   const heroUrl = screenshots[0].image_id == undefined || screenshots[0].image_id == null ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
-  const ebayURL = `https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${platform[0].name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`
+  //const ebayURL = `https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${platform[0].name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`
   return (
     <div>
       <ParallaxHeroShort image={heroUrl} height={25}/>
-      <div className="p-6">
+      <div className="flex flex-col p-6">
         <LitContainer>
           <div className="flex flex-col">
             <div className="flex flex-row max-sm:flex-col">
@@ -159,7 +176,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
                 }
                 {platform.map((plat: any, idx : number) => {
                   return(
-                    <Link key={idx} href={`https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${plat.name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`} target="_blank">
+                    <Link key={idx} href={`https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${plat.name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`}>
                       <div className="flex border-2 border-primary rounded-lg h-12 my-2 hover:bg-primary hover:text-white">
                         <p className="m-auto">
                           {`Shop for ${plat.name} version`}
@@ -172,6 +189,26 @@ export default async function ShopItem({params}: {params: {item: string, platfor
             </div>
           </div>
         </LitContainer>
+        
+        {//TODO: change all content checks to check for status 400
+        screenshots[0].status == 400 ? null : 
+        <Carousel className="p-6 mx-12">
+          <CarouselContent>
+            {screenshots.map(async(screen: any, idx: number) => {
+              return(
+                <CarouselItem className="basis-1/3" key={idx}>
+                    <div className="border-2 rounded-lg border-primary">
+                      <Image src={screen && screen.image_id ? `https://images.igdb.com/igdb/image/upload/t_1080p/${screen.image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${games[0].name}`} className="w-full rounded-lg h-[350px] max-sm:h-[175px]"/>
+                    </div>
+                </CarouselItem>
+              )
+            })}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+        
+        }
         {video ? 
           video.map((vid : any, idx: number) =>{
             return(
@@ -183,7 +220,31 @@ export default async function ShopItem({params}: {params: {item: string, platfor
         <LitContainer>
           <NewsletterBottomAd offer="Free SEO Checklist"/>
         </LitContainer>
-        
+        <div className="display:flex text-4xl text-primary m-auto">
+          <h2 className="m-auto">Similar Games</h2>
+        </div>
+        <Carousel className="display:flex flex-col p-6 mx-12">
+          <CarouselContent>
+            {games[0].similar_games.map(async(game: any, idx: number) => {
+              const thisGame = await fetchGames(token, game)
+              const plat = await getPlatform(token, thisGame[0].platforms[0].id)
+              const img = await fetchCover(token, thisGame[0].cover)
+              return(
+                <CarouselItem className="basis-1/3 display:flex flex-col " key={idx}>
+                  <Link href={`/item/${thisGame[0].id}/${plat.id}`}>
+                    <div className="display:flex flex-col border-2 rounded-lg border-primary">
+                      <Image src={img[0] && img[0].image_id ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${thisGame[0].name}`} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[350px]"/>
+                      <p className="display:flex justify-center text-center m-auto my-6 text-primary">{thisGame[0].name}</p>
+                    </div>
+                  </Link>
+                </CarouselItem>
+              )
+            })}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+
       </div>
     </div>
   )

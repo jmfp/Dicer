@@ -19,7 +19,7 @@ export default async function Search({params}: {params: {query: string}}) {
                 'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
                 'Authorization': `Bearer ${token}`,
               },
-              body: `fields *; search "${decodeURIComponent(params.query)}"; limit 100; where category != (${[0, 2, 3, 14, 13, 1, 7]});`
+              body: `fields *; search "${decodeURIComponent(params.query)}"; limit 100; where category = (${[0, 11]});`
           })
           return games.json()
     }

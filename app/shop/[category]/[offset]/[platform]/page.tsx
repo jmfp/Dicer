@@ -92,9 +92,9 @@ export default async function ShopCategory({params}:{params: {category: string, 
                 return(
                   <Link key={idx} href={`/item/${game.id}/${params.platform}`}>
                     <LitImage>
-                      <div className="flex flex-col m-auto">
-                        <Image src={img} width={400} height={400} alt="" className="bg-contain m-auto"/>
-                        <span className="line-clamp-1 text-primary">{game.name}</span>
+                      <div className="flex flex-col w-full">
+                        <Image src={img} width={200} height={200} alt={game.name} className="w-full h-full rounded-tl-lg rounded-tr-lg border-b-2 border-primary"/>
+                        <span className="line-clamp-1 text-primary text-center my-2">{game.name}</span>
                       </div>
                     </LitImage>
                   </Link>
