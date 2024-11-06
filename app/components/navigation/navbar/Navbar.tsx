@@ -45,6 +45,7 @@ const NavBar = () =>{
                 <Link href="/shop" className="hover:text-primary text-2xl flex">Shop</Link>
               </div>
             </DropdownMenuItem>
+            
             <DropdownMenuItem>
               <div className="m-auto text-2xl">
                 <Link
