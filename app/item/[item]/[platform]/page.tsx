@@ -196,7 +196,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
           <CarouselContent>
             {screenshots.map(async(screen: any, idx: number) => {
               return(
-                <CarouselItem className="basis-1/3" key={idx}>
+                <CarouselItem className="lg:basis-1/3" key={idx}>
                     <div className="border-2 rounded-lg border-primary">
                       <Image src={screen && screen.image_id ? `https://images.igdb.com/igdb/image/upload/t_1080p/${screen.image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${games[0].name}`} className="w-full rounded-lg h-[350px] max-sm:h-[175px]"/>
                     </div>
@@ -230,7 +230,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
               const plat = await getPlatform(token, thisGame[0].platforms[0].id)
               const img = await fetchCover(token, thisGame[0].cover)
               return(
-                <CarouselItem className="basis-1/3 display:flex flex-col " key={idx}>
+                <CarouselItem className="lg:basis-1/3 display:flex flex-col " key={idx}>
                   <Link href={`/item/${thisGame[0].id}/${plat.id}`}>
                     <div className="display:flex flex-col border-2 rounded-lg border-primary">
                       <Image src={img[0] && img[0].image_id ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${thisGame[0].name}`} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[350px]"/>
