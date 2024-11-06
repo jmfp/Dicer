@@ -1,4 +1,3 @@
-//import { subscribeHandler } from "@/app/api/newsletter"
 import { handle } from "@/actions/actions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -17,18 +16,10 @@ export async function NewsletterBottomAd(props: {offer: string}) {
                 const email = formData.get("email")
                 const _name = formData.get("name")
                 await handle(email, _name)
-                //axios.post("/api/newsletter", { email })
-                //fetch("/api/newsletter", {
-                //  method: "POST",
-                //  body: email
-                //}).then(res => {
-                //  console.log(email)
-                //})
-                //add to mailchimp list
             }} className="flex flex-col gap-3 p-3">
                 <Input name="name" placeholder="First Name" required className="caret-primary"/>
                 <Input name="email" type="email" placeholder="E-Mail" required className="caret-primary"/>
-                <Button type="submit">Signup</Button>
+                <Button className="mb-12" type="submit">Signup</Button>
             </form>
         </div>
     </div>
