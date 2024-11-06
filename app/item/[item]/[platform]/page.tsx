@@ -227,7 +227,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
           <CarouselContent>
             {games[0].similar_games.map(async(game: any, idx: number) => {
               const thisGame = await fetchGames(token, game)
-              const plat = await getPlatform(token, thisGame[0].platforms[0].id)
+              const plat = thisGame[0].platforms ? await getPlatform(token, thisGame[0].platforms[0]) : 7
               const img = await fetchCover(token, thisGame[0].cover)
               return(
                 <CarouselItem className="lg:basis-1/3 display:flex flex-col " key={idx}>
