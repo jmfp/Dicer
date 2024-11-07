@@ -9,6 +9,8 @@ import { NewsletterBottomAd } from "./components/newsletter/newsletter";
 import { getAllPosts } from "@/actions/actions";
 import axios from "axios";
 
+export const dynamic = "force-dynamic";
+
 export default async function Services() {
   const heroGames = {
     "Resident Evil 2": 4017,
