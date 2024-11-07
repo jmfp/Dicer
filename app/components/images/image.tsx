@@ -14,17 +14,17 @@ import { RGBButton } from "../button/Button";
 
 export async function ParallaxHero(props:{image: string, height: number, text?: string, children?: ReactNode, style?: string}) {
     return(
-        <div className={`h-full`}>
+        <div className={`h-full flex`}>
             <div
-            className={`w-full bg-cover bg-center bg-fixed bg-no-repeat max-sm:scale-100`}
+            className={`w-full bg-cover bg-center z-0 bg-fixed bg-no-repeat max-sm:scale-100`}
             style={{
               backgroundImage: `url(${props.image})`,
               paddingTop: `${props.height}%`
             }}
         >
-            <div className='display: flex m-auto'>
-                <p className="m-auto">{props.text}</p>
-                <div className="m-auto">
+            <div className='size-full z-10 flex flex-col m-auto'>
+                <p className="m-auto text-center text-6xl text-primary">{props.text}</p>
+                <div className="flex m-auto">
                     {props.children}
                 </div>
             </div>

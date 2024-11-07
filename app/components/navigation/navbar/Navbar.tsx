@@ -30,7 +30,7 @@ const NavBar = () =>{
         </div>
       </div>
     </div>
-    <div className="lg:scale-0 border-b-2 flex border-primary max-sm:h-16">
+    <div className="lg:scale-0 border-b-2 flex border-primary max-sm:h-16 lg:h-0">
       <div className="flex m-auto mx-12 ml-16">
         <DropdownMenu>
           <DropdownMenuTrigger><RxHamburgerMenu className="text-2xl text-primary"/></DropdownMenuTrigger>
@@ -83,7 +83,7 @@ function SocialLinks(){
   return(
     <div className="flex items-center gap-2">
       <Link href="/blog" className="hover:text-primary text-2xl">Blog</Link>
-      <Link href="/shop" className="hover:text-primary text-2xl flex">{<HiShoppingCart className="text-primary m-auto"/>} Shop</Link>
+      <Link href="/shop" className="hover:text-primary text-2xl flex">Shop</Link>
         <Link
           href="https://discord.gg/QSv2fdMpmW"
           target="_blank"
