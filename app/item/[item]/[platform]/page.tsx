@@ -16,7 +16,6 @@ import {
 
 export const dynamic = "force-dynamic";
 
-
 export async function generateMetadata({params}: {params: {item: string}}): Promise<Metadata>{
   const fetchData = async () =>{
     const response = await axios.post(`https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_DEV_CLIENT_ID}&client_secret=${process.env.TWITCH_DEV_SECRET}&grant_type=client_credentials`)
