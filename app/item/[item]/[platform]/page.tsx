@@ -146,7 +146,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
   const token = await fetchData();
   const games = await fetchGames(token, parseInt(params.item))
   const cover = await fetchCover(token, games[0].cover)
-  const coverUrl = cover[0].image_id && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
+  const coverUrl = cover[0].image_id != null && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
   const screenshots = await fetchScreenshots(token, games[0].screenshots)
   const platform = await getPlatform(token, games[0].platforms)
   const video = games[0].videos ? await fetchVideo(token, games[0].videos) : null
