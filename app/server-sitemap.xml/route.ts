@@ -70,7 +70,7 @@ export async function GET(request: Request) {
 
   const g1 = game1?.map((game: any) =>{
     return {
-      loc: `https://www.britemune.com/item/${game.id}`,
+      loc: `https://www.britemune.com/item/${game.id}/0`,
       lastmod: new Date().toISOString()
     }
   })
