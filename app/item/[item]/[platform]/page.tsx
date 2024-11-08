@@ -199,7 +199,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
               return(
                 <CarouselItem className="lg:basis-1/3" key={idx}>
                     <div className="border-2 rounded-lg border-primary">
-                      <Image src={screen && screen.image_id ? `https://images.igdb.com/igdb/image/upload/t_1080p/${screen.image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${games[0].name}`} className="w-full rounded-lg h-[350px] max-sm:h-[250px]"/>
+                      <Image src={screen && screen.image_id && screen.image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${screen.image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${games[0].name}`} className="w-full rounded-lg h-[350px] max-sm:h-[250px]"/>
                     </div>
                 </CarouselItem>
               )
@@ -234,7 +234,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
                 <CarouselItem className="lg:basis-1/3 display:flex flex-col " key={idx}>
                   <Link href={`/item/${thisGame[0].id}/${plat.id}`}>
                     <div className="display:flex flex-col border-2 rounded-lg border-primary">
-                      <Image src={img[0] && img[0].image_id ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${thisGame[0].name}`} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[300px]"/>
+                      <Image src={img[0] && img[0].image_id  && img[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${thisGame[0].name}`} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[300px]"/>
                       <p className="display:flex justify-center text-center m-auto my-6 text-primary">{thisGame[0].name}</p>
                     </div>
                   </Link>
