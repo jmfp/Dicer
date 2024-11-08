@@ -149,7 +149,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
   const cover = await fetchCover(token, games[0].cover)
   const coverUrl : string = cover[0] && cover[0].image_id != null && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
   const screenshots = await fetchScreenshots(token, games[0].screenshots)
-  const platform = await getPlatform(token, games[0].platforms)
+  const platform : any[] = await getPlatform(token, games[0].platforms)
   const video = games[0].videos ? await fetchVideo(token, games[0].videos) : null
   const heroUrl = screenshots[0].status == null && screenshots[0].image_id == undefined || screenshots[0].image_id == null ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
   //console.log(games[0])
@@ -161,7 +161,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
         <LitContainer>
           <div className="flex flex-col">
             <div className="flex flex-row max-sm:flex-col">
-              <Image src={coverUrl} height={200} width={200} alt={games[0].name} className="size-[800px] rounded-tl-lg rounded-bl-lg border-r-2 border-primary max-sm:rounded-tr-lg max-sm:border-b-2 max-sm:border-r-0 max-sm:rounded-bl-none max-sm:h-[400px] max-sm:w-full"/>
+              <Image src={coverUrl} height={200} width={200} alt={games[0].name} className="size-[900px] rounded-tl-lg rounded-bl-lg border-r-2 border-primary max-sm:rounded-tr-lg max-sm:border-b-2 max-sm:border-r-0 max-sm:rounded-bl-none max-sm:h-[450px] max-sm:w-full"/>
               <div className="flex flex-col p-6">
                 <h1 className="text-primary text-4xl m-auto">{games[0].name}</h1>
                 {games[0].storyline == undefined ? null : 
@@ -176,7 +176,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
                   <p className="m-auto text-xl">{games[0].summary}</p>
                 </div>
                 }
-                {platform.map((plat: any, idx : number) => {
+                {platform ? platform.map((plat: any, idx : number) => {
                   return(
                     <Link key={idx} href={`https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${plat.name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`}>
                       <div className="flex border-2 border-primary rounded-lg h-12 my-2 hover:bg-primary hover:text-white">
@@ -186,18 +186,18 @@ export default async function ShopItem({params}: {params: {item: string, platfor
                       </div>
                     </Link>
                   )
-                })}
+                }) : null}
               </div>
             </div>
           </div>
         </LitContainer>
         {//TODO: change all content checks to check for status 400
         screenshots[0].status == 400 ? null : 
-        <Carousel className="p-6 mx-12">
+        <Carousel className="p-6 mx-12 max-sm:mx-7">
           <CarouselContent>
             {screenshots.map(async(screen: any, idx: number) => {
               return(
-                <CarouselItem className="lg:basis-1/3" key={idx}>
+                <CarouselItem className="lg:basis-1/2" key={idx}>
                     <div className="border-2 rounded-lg border-primary">
                       <Image src={screen.image_id && screen.image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${screen.image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${games[0].name}`} className="w-full rounded-lg h-[350px] max-sm:h-[250px]"/>
                     </div>
