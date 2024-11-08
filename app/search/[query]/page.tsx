@@ -3,6 +3,9 @@ import axios from 'axios'
 import Link from 'next/link'
 import React from 'react'
 import Image from "next/image"
+import { redirect } from 'next/navigation'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 
 export const dynamic = "force-dynamic";
 
@@ -48,13 +51,22 @@ export default async function Search({params}: {params: {query: string}}) {
     }
 
     const token = await fetchData()
-    const games = await fetchGames(token)
+    const games : any[] = await fetchGames(token)
   return (
     <div>
+        <form action={async (formdata: FormData) =>{
+            'use server'
+            redirect(`/search/${formdata.get("search")}`)
+        }} className="flex flex-col m-auto">
+            <Input name="search" className="caret-primary w-[90%] m-auto mt-6" placeholder="Search for games"/>
+            <Button type="submit" className="w-[80%] m-auto my-6 ">
+                Search
+            </Button>
+        </form>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-5 mx-5 gap-5 content-center mb-5">
-            {games.length != 0 ? games.map(async(game: any, idx: number) => {
+            {games ? games.map(async(game: any, idx: number) => {
                 const cover = await fetchCover(token, parseInt(game.cover))
-                const img = cover[0].sttatus == null && cover[0].image_id && cover[0].image_id != undefined ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
+                const img : string = cover[0] && cover[0].image_id && cover[0].image_id != undefined ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
                 return(
                   <Link key={idx} href={`/item/${game.id}/${game.platforms? game.platforms[0] : 7}`}>
                     <LitImage>

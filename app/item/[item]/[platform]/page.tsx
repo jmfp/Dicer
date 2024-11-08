@@ -36,11 +36,11 @@ export async function generateMetadata({params}: {params: {item: string}}): Prom
       })
       return games.json()
   }
-  const game = await fetchGames(token, parseInt(params.item))
-  const keywords = game[0].name ? game[0].name : "Learn More about retro games at BriteMune"
+  const game : any[] = await fetchGames(token, parseInt(params.item))
+  const keywords = game[0] && game[0].name ? `Learn More about ${game[0].name} and other Retro Video Games at BriteMune` : "Learn More about retro games at BriteMune"
   return{
-    title: game[0].name,
-    description: game[0].name,
+    title: game[0] && game[0].name ? game[0].name : "BriteMune Retro Games",
+    description: game[0] && game[0].name ? game[0].name : "BriteMune Retro Games",
     keywords: keywords,
     openGraph: {
       images: [
@@ -145,9 +145,9 @@ export default async function ShopItem({params}: {params: {item: string, platfor
 }
 
   const token = await fetchData();
-  const games = await fetchGames(token, parseInt(params.item))
+  const games : any[] = await fetchGames(token, parseInt(params.item))
   const cover = await fetchCover(token, games[0].cover)
-  const coverUrl = cover[0].status == null && cover[0].image_id != null && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
+  const coverUrl : string = cover[0] && cover[0].image_id != null && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
   const screenshots = await fetchScreenshots(token, games[0].screenshots)
   const platform = await getPlatform(token, games[0].platforms)
   const video = games[0].videos ? await fetchVideo(token, games[0].videos) : null
@@ -227,14 +227,14 @@ export default async function ShopItem({params}: {params: {item: string, platfor
         <Carousel className="display:flex flex-col p-6 mx-12">
           <CarouselContent>
             {games[0].similar_games.length > 0 ? games[0].similar_games.map(async(game: any, idx: number) => {
-              const thisGame = await fetchGames(token, game)
+              const thisGame : any[] = await fetchGames(token, game)
               const plat = thisGame[0] && thisGame[0].platforms ? await getPlatform(token, thisGame[0].platforms[0]) : 7
               const img = await fetchCover(token, thisGame[0].cover)
               return(
                 <CarouselItem className="lg:basis-1/3 display:flex flex-col " key={idx}>
                   <Link href={`/item/${thisGame[0].id}/${plat.id}`}>
                     <div className="display:flex flex-col border-2 rounded-lg border-primary">
-                      <Image src={img[0].status == null && img[0].image_id && img[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${thisGame[0].name}`} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[300px]"/>
+                      <Image src={img[0]  && img[0].image_id && img[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${thisGame[0].name}`} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[300px]"/>
                       <p className="display:flex justify-center text-center m-auto my-6 text-primary">{thisGame[0].name}</p>
                     </div>
                   </Link>
