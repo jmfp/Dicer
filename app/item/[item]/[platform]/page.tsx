@@ -190,7 +190,6 @@ export default async function ShopItem({params}: {params: {item: string, platfor
             </div>
           </div>
         </LitContainer>
-        
         {//TODO: change all content checks to check for status 400
         screenshots[0].status == 400 ? null : 
         <Carousel className="p-6 mx-12">
