@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button"
 import axios from "axios"
 import Image from "next/image"
 import Link from "next/link"
-//import apicalypse from 'apicalypse';
+
+export const dynamic = "force-dynamic";
 
 export default async function ShopCategory({params}:{params: {category: string, offset: string, platform: string}}) {
 
@@ -75,9 +76,7 @@ export default async function ShopCategory({params}:{params: {category: string, 
     }
     
     const token = await fetchData();
-    const platform = await getPlatform(token, parseInt(params.platform))
     const games = await fetchGames(token, parseInt(params.platform));
-    const logo = await getPlatformLogo(token, platform[0].platform_logo)
 
   return (
     <div className="flex flex-col m-auto p-6">
@@ -86,7 +85,7 @@ export default async function ShopCategory({params}:{params: {category: string, 
             
             {games ? games.map(async(game: any, idx: number) => {
                 const cover = await fetchCover(token, parseInt(game.cover))
-                const img = cover[0] && cover[0].image_id!= undefined && cover[0].image_id != null ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
+                const img = cover[0].status == null && cover[0].image_id!= undefined && cover[0].image_id != null ?`https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
                 
                 return(
                   <Link key={idx} href={`/item/${game.id}/${params.platform}`}>

@@ -14,6 +14,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 
+export const dynamic = "force-dynamic";
+
 
 export async function generateMetadata({params}: {params: {item: string}}): Promise<Metadata>{
   const fetchData = async () =>{
@@ -146,11 +148,11 @@ export default async function ShopItem({params}: {params: {item: string, platfor
   const token = await fetchData();
   const games = await fetchGames(token, parseInt(params.item))
   const cover = await fetchCover(token, games[0].cover)
-  const coverUrl = cover[0] && cover[0].image_id != null && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
+  const coverUrl = cover[0].status == null && cover[0].image_id != null && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
   const screenshots = await fetchScreenshots(token, games[0].screenshots)
   const platform = await getPlatform(token, games[0].platforms)
   const video = games[0].videos ? await fetchVideo(token, games[0].videos) : null
-  const heroUrl = screenshots[0] && screenshots[0].image_id == undefined || screenshots[0].image_id == null ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
+  const heroUrl = screenshots[0].status == null && screenshots[0].image_id == undefined || screenshots[0].image_id == null ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
   //console.log(games[0])
   //const ebayURL = `https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${platform[0].name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`
   return (
@@ -225,15 +227,15 @@ export default async function ShopItem({params}: {params: {item: string, platfor
         </div>
         <Carousel className="display:flex flex-col p-6 mx-12">
           <CarouselContent>
-            {games[0].similar_games ? games[0].similar_games.map(async(game: any, idx: number) => {
+            {games[0].similar_games.length > 0 ? games[0].similar_games.map(async(game: any, idx: number) => {
               const thisGame = await fetchGames(token, game)
-              const plat = thisGame[0].platforms ? await getPlatform(token, thisGame[0].platforms[0]) : 7
+              const plat = thisGame[0] && thisGame[0].platforms ? await getPlatform(token, thisGame[0].platforms[0]) : 7
               const img = await fetchCover(token, thisGame[0].cover)
               return(
                 <CarouselItem className="lg:basis-1/3 display:flex flex-col " key={idx}>
                   <Link href={`/item/${thisGame[0].id}/${plat.id}`}>
                     <div className="display:flex flex-col border-2 rounded-lg border-primary">
-                      <Image src={img[0].image_id  && img[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${thisGame[0].name}`} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[300px]"/>
+                      <Image src={img[0].status == null && img[0].image_id && img[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${thisGame[0].name}`} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[300px]"/>
                       <p className="display:flex justify-center text-center m-auto my-6 text-primary">{thisGame[0].name}</p>
                     </div>
                   </Link>
