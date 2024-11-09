@@ -58,7 +58,7 @@ export async function generateMetadata({params}: {params: {item: string}}): Prom
   }
 
   const game : any[] = await fetchGames(token, parseInt(params.item))
-  const cover : any = await fetchCover(token, game[0].cover)
+  const cover : any = game[0] ? await fetchCover(token, game[0].cover) : null
   const keywords = game[0] && game[0].name ? game[0].name : "Retro Video Games"
   return{
     title: game[0] && game[0].name ? game[0].name : "BriteMune Retro Games",
@@ -173,7 +173,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
   const screenshots = await fetchScreenshots(token, games[0].screenshots)
   const platform : any[] = await getPlatform(token, games[0].platforms)
   const video = games[0].videos ? await fetchVideo(token, games[0].videos) : null
-  const heroUrl = screenshots[0].status == null && screenshots[0].image_id == undefined || screenshots[0].image_id == null ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
+  const heroUrl : string = screenshots[0] == null && screenshots[0].image_id == undefined ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
   //console.log(games[0])
   //const ebayURL = `https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${platform[0].name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`
   return (
@@ -198,7 +198,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
                   <p className="m-auto text-xl">{games[0].summary}</p>
                 </div>
                 }
-                {platform ? platform.map((plat: any, idx : number) => {
+                {platform.length ? platform.map((plat: any, idx : number) => {
                   return(
                     <Link key={idx} href={`https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${plat.name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`}>
                       <div className="flex border-2 border-primary rounded-lg h-12 my-2 hover:bg-primary hover:text-white">
@@ -221,7 +221,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
               return(
                 <CarouselItem className="lg:basis-1/2" key={idx}>
                     <div className="border-2 rounded-lg border-primary">
-                      <Image src={screen.image_id && screen.image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${screen.image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${games[0].name}`} className="w-full rounded-lg h-[350px] max-sm:h-[250px]"/>
+                      <Image src={screen.image_id && screen.image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${screen.image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${games[0].name}`} className="w-full rounded-lg h-[450px] max-sm:h-[250px]"/>
                     </div>
                 </CarouselItem>
               )
@@ -251,12 +251,12 @@ export default async function ShopItem({params}: {params: {item: string, platfor
             {games[0].similar_games.length > 0 ? games[0].similar_games.map(async(game: any, idx: number) => {
               const thisGame : any[] = await fetchGames(token, game)
               const plat = thisGame[0] && thisGame[0].platforms ? await getPlatform(token, thisGame[0].platforms[0]) : 7
-              const img = await fetchCover(token, thisGame[0].cover)
+              const img = thisGame[0] ? await fetchCover(token, thisGame[0].cover) : null
               return(
                 <CarouselItem className="lg:basis-1/3 display:flex flex-col " key={idx}>
                   <Link href={`/item/${thisGame[0].id}/${plat.id}`}>
                     <div className="display:flex flex-col border-2 rounded-lg border-primary">
-                      <Image src={img[0]  && img[0].image_id && img[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${thisGame[0].name}`} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[300px]"/>
+                      <Image src={img[0] && img[0].image_id && img[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${thisGame[0].name}`} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[300px]"/>
                       <p className="display:flex justify-center text-center m-auto my-6 text-primary">{thisGame[0].name}</p>
                     </div>
                   </Link>
