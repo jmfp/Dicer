@@ -59,7 +59,7 @@ export async function generateMetadata({params}: {params: {item: string}}): Prom
 
   const game : any[] = await fetchGames(token, parseInt(params.item))
   const cover : any = await fetchCover(token, game[0].cover)
-  const keywords = game[0] && game[0].name ? `Learn More about ${game[0].name} and other Retro Video Games at BriteMune` : "Learn More about retro games at BriteMune"
+  const keywords = game[0] && game[0].name ? game[0].name : "Retro Video Games"
   return{
     title: game[0] && game[0].name ? game[0].name : "BriteMune Retro Games",
     description: game[0] && game[0].summary ? game[0].summary : "BriteMune Retro Games",
