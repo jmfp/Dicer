@@ -37,22 +37,6 @@ export async function GET(request: Request) {
   const urls = await getAllPosts()
   // get game pages
   const token = await fetchData()
-  let _games : any = []
-  //const allGames = await Promise.all(plats.map(async (plat: any) => {
-  //  const games = await fetchGames(token, plat)
-  //  games.map((game: any) => {
-  //    return JSON.stringify({
-  //      loc: `https://www.britemune.com/item/${game.id}`,
-  //      lastmod: new Date().toISOString()
-  //    })
-  //  })
-  //}))
-  //const lst = _games.flat().map((game: any) =>{
-  //  return{
-  //    loc: `https://www.britemune.com/item/${game.id}`,
-  //    lastmod: new Date().toISOString()
-  //  }
-  //})
   const post = urls?.map((post:any) =>{
     return{
         loc: `https://www.britemune.com/blog/${post?.slug}`,

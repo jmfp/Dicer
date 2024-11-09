@@ -36,16 +36,38 @@ export async function generateMetadata({params}: {params: {item: string}}): Prom
       })
       return games.json()
   }
+
+  const fetchCover = async(token: string, id: any) =>{
+    try {
+      const covers = await fetch(
+        "https://api.igdb.com/v4/covers",
+        { method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
+            'Authorization': `Bearer ${token}`,
+            //"Body":  `where id = (${id});`
+          },
+          body: `fields *; where id = (${id});`
+      })
+      return covers.json()
+    } catch (error : any) {
+      console.log(error.message)
+      return null
+    }
+  }
+
   const game : any[] = await fetchGames(token, parseInt(params.item))
+  const cover : any = await fetchCover(token, game[0].cover)
   const keywords = game[0] && game[0].name ? `Learn More about ${game[0].name} and other Retro Video Games at BriteMune` : "Learn More about retro games at BriteMune"
   return{
     title: game[0] && game[0].name ? game[0].name : "BriteMune Retro Games",
-    description: game[0] && game[0].name ? game[0].name : "BriteMune Retro Games",
+    description: game[0] && game[0].summary ? game[0].summary : "BriteMune Retro Games",
     keywords: keywords,
     openGraph: {
       images: [
         {
-          url: "/images/hero.png" 
+          url:  cover[0] && cover[0] != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png" 
         }
       ]
     },
