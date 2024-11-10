@@ -169,11 +169,11 @@ export default async function ShopItem({params}: {params: {item: string, platfor
   const token = await fetchData();
   const games : any[] = await fetchGames(token, parseInt(params.item))
   const cover : any = games[0] ? await fetchCover(token, games[0].cover) : null
-  const coverUrl : string = cover[0] && cover[0].image_id != null && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
+  const coverUrl : string = cover && cover[0] && cover[0].image_id != null && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
   const screenshots = await fetchScreenshots(token, games[0].screenshots)
   const platform : any[] = await getPlatform(token, games[0].platforms)
   const video = games[0].videos ? await fetchVideo(token, games[0].videos) : null
-  const heroUrl : string = screenshots[0] == null && screenshots[0].image_id == undefined ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
+  const heroUrl : string = screenshots[0] == null || screenshots[0].image_id == undefined || screenshots == null || screenshots[0].image_id == null ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
   //console.log(games[0])
   //const ebayURL = `https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${platform[0].name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`
   return (
@@ -225,7 +225,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
           </div>
         </LitContainer>
         {//TODO: change all content checks to check for status 400
-        screenshots[0].status == 400 ? null : 
+        screenshots[0].status && screenshots[0].status == 400 ? null : 
         <Carousel className="p-6 mx-12 max-sm:mx-7">
           <CarouselContent>
             {screenshots.map(async(screen: any, idx: number) => {
