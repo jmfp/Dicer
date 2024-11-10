@@ -67,7 +67,7 @@ export async function generateMetadata({params}: {params: {item: string}}): Prom
     openGraph: {
       images: [
         {
-          url:  cover[0] && cover[0] != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png" 
+          url:  cover && cover[0] && cover[0] != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png" 
         }
       ]
     },
@@ -242,8 +242,8 @@ export default async function ShopItem({params}: {params: {item: string, platfor
           <CarouselNext />
         </Carousel>
         }
-        
-        {video ? 
+
+        {video.length >0 ? 
           video.map((vid : any, idx: number) =>{
             return(
               <LitContainer key={idx}>
@@ -265,10 +265,10 @@ export default async function ShopItem({params}: {params: {item: string, platfor
               const img = thisGame[0] ? await fetchCover(token, thisGame[0].cover) : null
               return(
                 <CarouselItem className="lg:basis-1/3 display:flex flex-col " key={idx}>
-                  <Link href={`/item/${thisGame[0].id}/${plat.id}`}>
+                  <Link href={thisGame[0] && thisGame[0].id ? `/item/${thisGame[0].id}/${plat.id}` : "/"}>
                     <div className="display:flex flex-col border-2 rounded-lg border-primary">
-                      <Image src={img[0] && img[0].image_id && img[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${thisGame[0].name}`} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[300px]"/>
-                      <p className="display:flex justify-center text-center m-auto my-6 text-primary">{thisGame[0].name}</p>
+                      <Image src={img && img[0] && img[0].image_id && img[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${img[0].image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={thisGame && thisGame[0] && thisGame[0].name ? `${thisGame[0].name}` : "BriteMune Retro Games"} className="w-full rounded-tl-lg rounded-tr-lg h-[700px] max-sm:h-[300px]"/>
+                      <p className="display:flex justify-center text-center m-auto my-6 text-primary">{thisGame && thisGame[0] && thisGame[0].name ? thisGame[0].name : ""}</p>
                     </div>
                   </Link>
                 </CarouselItem>
