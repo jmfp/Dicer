@@ -170,7 +170,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
   const games : any[] = await fetchGames(token, parseInt(params.item))
   const cover : any = games[0] ? await fetchCover(token, games[0].cover) : null
   const coverUrl : string = cover && cover[0] && cover[0].image_id != null && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
-  const screenshots = await fetchScreenshots(token, games[0].screenshots)
+  const screenshots = games[0] && games[0].screenshots ? await fetchScreenshots(token, games[0].screenshots) : null
   const platform : any[] = await getPlatform(token, games[0].platforms)
   const video = games[0].videos ? await fetchVideo(token, games[0].videos) : null
   const heroUrl : string = screenshots[0] == null || screenshots[0].image_id == undefined || screenshots == null || screenshots[0].image_id == null ? "/images/hero.png" : `https://images.igdb.com/igdb/image/upload/t_1080p/${screenshots[0].image_id}.jpg`
@@ -223,28 +223,28 @@ export default async function ShopItem({params}: {params: {item: string, platfor
               </div>
             </div>
           </div>
-          
+
         </LitContainer>
         {//TODO: change all content checks to check for status 400
-        screenshots[0].status && screenshots[0].status == 400 ? null : 
+        screenshots && screenshots[0] && screenshots[0].status && screenshots[0].status == 400 ? null : 
         <Carousel className="p-6 mx-12 max-sm:mx-7">
           <CarouselContent>
-            {screenshots.map(async(screen: any, idx: number) => {
+            {screenshots && screenshots.length ? screenshots.map(async(screen: any, idx: number) => {
               return(
                 <CarouselItem className="lg:basis-1/2" key={idx}>
                     <div className="border-2 rounded-lg border-primary">
-                      <Image src={screen.image_id && screen.image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${screen.image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${games[0].name}`} className="w-full rounded-lg h-[450px] max-sm:h-[250px]"/>
+                      <Image src={screen && screen.image_id && screen.image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${screen.image_id}.jpg` : `/images/hero.png`} width={200} height={200} alt={`${games[0].name}`} className="w-full rounded-lg h-[450px] max-sm:h-[250px]"/>
                     </div>
                 </CarouselItem>
               )
-            })}
+            }) : null}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />
         </Carousel>
         }
 
-        {video.length >0 ? 
+        {video && video.length >0 ? 
           video.map((vid : any, idx: number) =>{
             return(
               <LitContainer key={idx}>
