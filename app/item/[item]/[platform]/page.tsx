@@ -168,7 +168,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
 
   const token = await fetchData();
   const games : any[] = await fetchGames(token, parseInt(params.item))
-  const cover = await fetchCover(token, games[0].cover)
+  const cover : any = games[0] ? await fetchCover(token, games[0].cover) : null
   const coverUrl : string = cover[0] && cover[0].image_id != null && cover[0].image_id != undefined ? `https://images.igdb.com/igdb/image/upload/t_1080p/${cover[0].image_id}.jpg` : "/images/hero.png"
   const screenshots = await fetchScreenshots(token, games[0].screenshots)
   const platform : any[] = await getPlatform(token, games[0].platforms)
@@ -198,17 +198,28 @@ export default async function ShopItem({params}: {params: {item: string, platfor
                   <p className="m-auto text-xl">{games[0].summary}</p>
                 </div>
                 }
+
+              <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-5 mx-5 gap-5 content-center mb-5">
                 {platform.length ? platform.map((plat: any, idx : number) => {
                   return(
                     <Link key={idx} href={`https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name} ${plat.name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`}>
                       <div className="flex border-2 border-primary rounded-lg h-12 my-2 hover:bg-primary hover:text-white">
-                        <p className="m-auto">
+                        <p className="m-auto line-clamp-1">
                           {`Shop for ${plat.name} version`}
                         </p>
                       </div>
                     </Link>
                   )
-                }) : null}
+                }) : 
+                <Link href={`https://www.ebay.com/sch/i.html?_nkw=${`${games[0].name}`}&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=gamecube&_osacat=0&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339086170&customid=gamecube&toolid=10001&mkevt=1`}>
+                  <div className="flex border-2 border-primary rounded-lg h-12 my-2 hover:bg-primary hover:text-white">
+                    <p className="m-auto line-clamp-1">
+                      {`Shop for ${games[0].name}`}
+                    </p>
+                  </div>
+                </Link>
+                }
+              </div>
               </div>
             </div>
           </div>
