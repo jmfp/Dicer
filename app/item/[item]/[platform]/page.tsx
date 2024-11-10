@@ -242,6 +242,7 @@ export default async function ShopItem({params}: {params: {item: string, platfor
           <CarouselNext />
         </Carousel>
         }
+        
         {video ? 
           video.map((vid : any, idx: number) =>{
             return(
