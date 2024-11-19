@@ -14,29 +14,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post{
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  slug        String    @unique
-  title       String
-  content     String
-  image       String
-  description String
-  category    String    //id of category post is in
-  previous    String?   //slug of previous post in series
-  next        String?   //slug of next post in series
-  published   Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  keywords    String[]  
-  ebayImage   String?   //TODO: for now, ebay images are uploaded per post, but should transition to dropdown where user can choose from uploaded images
-  ebaySearch  String?   //search string for ebay ad
-  ebayProduct String?
-  views       Int       @default(0)
-  //author   User      @relation(fields: [authorId], references: [id])
-  //authorId String    @db.ObjectId
-  //comments Comment[]
-}
-
 model User{
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   email       String    @unique
@@ -46,39 +23,40 @@ model User{
   admin       Boolean   @default(false)
 }
 
-model Course{
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  chapters    String[]  //urls for youtube videos
-  titles      String[]  //titles for each chapter
-  ownerId     String    //owner of course
-  price       Float     @default(0.00)
-  completed   Boolean   @default(false)
-}
-
 model Image{
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   base64      String    //base64 for an image
 }
 
-model Category{
+model Game{
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   name        String
 }
 
-model Series{
+model Character5e{
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  class       Json[]      
+  race        Json  //ids of all seasons of a series
+  background  Json
+  alignment   Json
   name        String
-  seasons     String[]  //ids of all seasons of a series
-}
-
-model Season{
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  episodes    String[]  //ids of all episodes of a season
-}
-
-model Episode{
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  seasons     String[]  //ids of all seasons of a series
+  level       Int
+  experience  Int       @default(0)
+  ownerId     String
+  stats       Json
+  skills      Json
+  ac          Int
+  initiative  Int
+  speed       Int
+  hpMax       Int
+  currentHp   Int
+  tempHp      Int
+  languages   Json[]
+  age         Int
+  allies      Json[]
+  backstory   String?
+  equipment   Json[]
+  spells      Json
+  spellcasting Json
+  personality Json
 }

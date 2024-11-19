@@ -112,26 +112,6 @@ Prisma.NullTypes = {
  * Enums
  */
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  slug: 'slug',
-  title: 'title',
-  content: 'content',
-  image: 'image',
-  description: 'description',
-  category: 'category',
-  previous: 'previous',
-  next: 'next',
-  published: 'published',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  keywords: 'keywords',
-  ebayImage: 'ebayImage',
-  ebaySearch: 'ebaySearch',
-  ebayProduct: 'ebayProduct',
-  views: 'views'
-};
-
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -141,41 +121,42 @@ exports.Prisma.UserScalarFieldEnum = {
   admin: 'admin'
 };
 
-exports.Prisma.CourseScalarFieldEnum = {
-  id: 'id',
-  chapters: 'chapters',
-  titles: 'titles',
-  ownerId: 'ownerId',
-  price: 'price',
-  completed: 'completed'
-};
-
 exports.Prisma.ImageScalarFieldEnum = {
   id: 'id',
   base64: 'base64'
 };
 
-exports.Prisma.CategoryScalarFieldEnum = {
+exports.Prisma.GameScalarFieldEnum = {
   id: 'id',
   name: 'name'
 };
 
-exports.Prisma.SeriesScalarFieldEnum = {
+exports.Prisma.Character5eScalarFieldEnum = {
   id: 'id',
+  class: 'class',
+  race: 'race',
+  background: 'background',
+  alignment: 'alignment',
   name: 'name',
-  seasons: 'seasons'
-};
-
-exports.Prisma.SeasonScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  episodes: 'episodes'
-};
-
-exports.Prisma.EpisodeScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  seasons: 'seasons'
+  level: 'level',
+  experience: 'experience',
+  ownerId: 'ownerId',
+  stats: 'stats',
+  skills: 'skills',
+  ac: 'ac',
+  initiative: 'initiative',
+  speed: 'speed',
+  hpMax: 'hpMax',
+  currentHp: 'currentHp',
+  tempHp: 'tempHp',
+  languages: 'languages',
+  age: 'age',
+  allies: 'allies',
+  backstory: 'backstory',
+  equipment: 'equipment',
+  spells: 'spells',
+  spellcasting: 'spellcasting',
+  personality: 'personality'
 };
 
 exports.Prisma.SortOrder = {
@@ -190,14 +171,10 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
   User: 'User',
-  Course: 'Course',
   Image: 'Image',
-  Category: 'Category',
-  Series: 'Series',
-  Season: 'Season',
-  Episode: 'Episode'
+  Game: 'Game',
+  Character5e: 'Character5e'
 };
 
 /**

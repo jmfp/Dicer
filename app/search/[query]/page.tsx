@@ -10,51 +10,51 @@ import { Button } from '@/components/ui/button'
 export const dynamic = "force-dynamic";
 
 export default async function Search({params}: {params: {query: string}}) {
-    const fetchData = async () =>{
-        const response = await axios.post(`https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_DEV_CLIENT_ID}&client_secret=${process.env.TWITCH_DEV_SECRET}&grant_type=client_credentials`)
-        return response.data.access_token
-    }
+    //const fetchData = async () =>{
+    //    const response = await axios.post(`https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_DEV_CLIENT_ID}&client_secret=${process.env.TWITCH_DEV_SECRET}&grant_type=client_credentials`)
+    //    return response.data.access_token
+    //}
 
-    const fetchGames = async (token: string) =>{
-        const games = await fetch(
-            "https://api.igdb.com/v4/games",
-            { method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
-                'Authorization': `Bearer ${token}`,
-              },
-              body: `fields *; search "${decodeURIComponent(params.query)}"; limit 100; where category = (${[0, 11]});`
-          })
-          return games.json()
-    }
+    //const fetchGames = async (token: string) =>{
+    //    const games = await fetch(
+    //        "https://api.igdb.com/v4/games",
+    //        { method: 'POST',
+    //          headers: {
+    //            'Accept': 'application/json',
+    //            'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
+    //            'Authorization': `Bearer ${token}`,
+    //          },
+    //          body: `fields *; search "${decodeURIComponent(params.query)}"; limit 100; where category = (${[0, 11]});`
+    //      })
+    //      return games.json()
+    //}
 
-    const fetchCover = async(token: string, id: any) =>{
-      try {
-        const covers = await fetch(
-          "https://api.igdb.com/v4/covers",
-          { method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
-              'Authorization': `Bearer ${token}`,
-              //"Body":  `where id = (${id});`
-            },
-            body: `fields *; where id = (${id});`
-        })
-        return covers.json()
-        
-      } catch (error: any) {
-        console.log(error.message)
-        return null
-      }
-    }
+    //const fetchCover = async(token: string, id: any) =>{
+    //  try {
+    //    const covers = await fetch(
+    //      "https://api.igdb.com/v4/covers",
+    //      { method: 'POST',
+    //        headers: {
+    //          'Accept': 'application/json',
+    //          'Client-ID': `${process.env.TWITCH_DEV_CLIENT_ID}`,
+    //          'Authorization': `Bearer ${token}`,
+    //          //"Body":  `where id = (${id});`
+    //        },
+    //        body: `fields *; where id = (${id});`
+    //    })
+    //    return covers.json()
+    //    
+    //  } catch (error: any) {
+    //    console.log(error.message)
+    //    return null
+    //  }
+    //}
 
-    const token = await fetchData()
-    const games : any[] = await fetchGames(token)
+    //const token = await fetchData()
+    //const games : any[] = await fetchGames(token)
   return (
     <div>
-        <form action={async (formdata: FormData) =>{
+        {/*<form action={async (formdata: FormData) =>{
             'use server'
             redirect(`/search/${formdata.get("search")}`)
         }} className="flex flex-col m-auto">
@@ -79,7 +79,7 @@ export default async function Search({params}: {params: {query: string}}) {
                 )
             }
           ) : null}
-      </div>
+      </div>*/}
     </div>
   )
 }
